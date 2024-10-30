@@ -59,13 +59,13 @@ const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
         transition={{ duration: 0.8, type: "spring", bounce: 0 }}
         onMouseEnter={onHover}
         onMouseLeave={onMouseLeave}
-        // onPan={(e, info) => {
-        //   if (info.delta.x > 0) {
-        //     handlePreviousSlide();
-        //   } else if (info.delta.x < 0) {
-        //     handleNextSlide();
-        //   }
-        // }}
+        onPan={(e, info) => {
+          if (info.delta.x > 0) {
+            handlePreviousSlide();
+          } else if (info.delta.x < 0) {
+            handleNextSlide();
+          }
+        }}
       >
         {children}
         <div className="absolute bottom-4 left-4 z-10 flex gap-2 text-4xl text-white sm:bottom-8 sm:left-8">

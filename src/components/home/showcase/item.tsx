@@ -52,9 +52,13 @@ const ShowcaseItem = ({
   return (
     <Link
       href={link.href}
-      className={cn("group isolate h-full w-full", themes[theme].background)}
+      draggable={false}
+      className={cn(
+        "group isolate h-full w-full select-none",
+        themes[theme].background,
+      )}
     >
-      <div className="absolute inset-0 z-20 flex items-center justify-center p-4 sm:p-8">
+      <div className="absolute inset-0 z-10 flex items-center justify-center p-4 sm:p-8">
         <div className="flex h-full w-full flex-col justify-between gap-4 text-white">
           <div className="flex w-full flex-col-reverse justify-between gap-2 sm:flex-row">
             <div className="flex flex-col">
@@ -104,7 +108,7 @@ const ShowcaseItem = ({
       {overlay?.showOverlay && (
         <div
           className={cn(
-            "absolute inset-0 z-10 bg-gray-600/40",
+            "absolute inset-0 z-[1] bg-gray-600/40",
             overlay.className,
           )}
         />
