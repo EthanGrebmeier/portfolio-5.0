@@ -46,7 +46,9 @@ const PrintOutImage = ({
         className="absolute right-2 top-2 rounded-xl border-2 border-black bg-green-400 p-2"
         onClick={() => {
           setSavedImages([...savedImages, ditheredSource]);
-          onSave && onSave();
+          if (onSave) {
+            onSave();
+          }
         }}
       >
         <Save size={20} />

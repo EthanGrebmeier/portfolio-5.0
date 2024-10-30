@@ -1,12 +1,12 @@
 import React, { useLayoutEffect } from "react";
-import { Color } from "./types";
+import type { Color } from "./types";
 import DitherColorSelector from "./dither-color";
 import { cn } from "~/helpers/cn";
-import { Brush, Plus, Trash2, XCircle } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { useAtom } from "jotai";
 import { paletteSwatchesAtom } from "./atom";
 import { getRgbaFromHex } from "~/lib/dither";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import useMeasure from "react-use-measure";
 
 type ColorPaletteProps = {
@@ -44,7 +44,7 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
-      className="flex h-auto w-[200px] flex-col gap-2 overflow-hidden rounded-xl border-2 border-black bg-background px-2 "
+      className="flex h-auto w-[200px] flex-col gap-2 overflow-hidden rounded-xl border-2 border-black bg-background px-2"
     >
       <motion.div
         animate={{
@@ -68,7 +68,7 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
                       style={{ backgroundColor: color.color }}
                       isSelected={ditherColor.id === color.id}
                       className={cn(
-                        " group-hover:bg-blend-darken group-hover:hover:border-[4px] group-hover:hover:bg-blend-normal data-[selected=true]:border-[4px] ",
+                        "group-hover:bg-blend-darken group-hover:hover:border-[4px] group-hover:hover:bg-blend-normal data-[selected=true]:border-[4px]",
                       )}
                       onSelect={(color) => setDitherColor(color)}
                     />
@@ -83,7 +83,7 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
                       ></button>
                     ))}
                 </div>
-                <div className="flex flex-col gap-1  border-black py-1 pl-2">
+                <div className="flex flex-col gap-1 border-black py-1 pl-2">
                   <button
                     onClick={() => setPanelName("input")}
                     className="group flex size-7 items-center justify-center rounded-full border-2 border-black bg-green-400 transition-colors disabled:cursor-not-allowed disabled:bg-gray-400"
@@ -125,8 +125,9 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
                   if (!isValid) return;
                   const formattedColor = {
                     id: Date.now(),
-                    color:
-                      colorInput[0] === "#" ? colorInput : "#" + colorInput,
+                    color: colorInput.startsWith("#")
+                      ? colorInput
+                      : "#" + colorInput,
                   };
                   setPaletteSwatches([...paletteSwatches, formattedColor]);
                   setDitherColor(formattedColor, false);
@@ -157,7 +158,7 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
                   </div>
                 </div>
 
-                <div className="mt-4  grid grid-cols-2 gap-2 text-sm">
+                <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
                   <button
                     type="button"
                     className="rounded-xl border-2 border-black bg-yellow-200 px-3 py-1 font-bold"
@@ -166,7 +167,7 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
                     Back
                   </button>
                   <button
-                    className=" rounded-xl border-2 border-black bg-green-500 px-2 py-1 font-bold transition-all disabled:opacity-40"
+                    className="rounded-xl border-2 border-black bg-green-500 px-2 py-1 font-bold transition-all disabled:opacity-40"
                     disabled={!isInputValid}
                   >
                     Add

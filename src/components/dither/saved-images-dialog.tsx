@@ -1,16 +1,9 @@
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+
 import SavedImages from "./saved-images";
 import { savedImagesAtom } from "./atom";
 import { useAtomValue } from "jotai";
-import { motion, Variants } from "framer-motion";
-import { DialogDescription } from "@radix-ui/react-dialog";
+import { motion, type Variants } from "framer-motion";
 import ResponsiveDialog from "../ui/responsive-dialog";
 import { ImageIcon } from "lucide-react";
 
@@ -28,7 +21,7 @@ const variants: Variants = {
     y: "-50%",
   },
   hover: (i) => ({
-    rotate: (imageSkews[i % imageSkews.length] as number) * 0.56,
+    rotate: imageSkews[i % imageSkews.length]! * 0.56,
     x: "-50%",
     y: "-50%",
   }),
@@ -44,7 +37,7 @@ const SavedImagesDialog = () => {
       title="Saved Images"
       description="Images you have saved are stored locally in your browser"
       trigger={
-        <button className="flex  text-sm font-medium hover:font-bold">
+        <button className="flex text-sm font-medium hover:font-bold">
           <motion.div
             initial="initial"
             animate="animate"
