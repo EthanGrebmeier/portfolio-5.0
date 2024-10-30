@@ -1,37 +1,55 @@
+import { ArrowRight, Scroll } from "lucide-react";
+import { Afacad } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
+import FullscreenColumn from "~/components/home/fullscreen-column";
+import Showcase from "~/components/home/showcase";
+import { cn } from "~/helpers/cn";
 
-export default function HomePage() {
+const font = Afacad({
+  weight: ["400", "600"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export default async function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+    <div
+      className={cn(
+        "flex w-full flex-col items-center bg-background",
+        font.className,
+      )}
+    >
+      {/* <div className="mb-4 flex  items-center rounded-xl bg-white px-4 py-2">
+        <h1 className="text-2xl font-bold">Fillaneed</h1>
+      </div> */}
+      <div
+        className="flex w-full flex-col justify-between gap-6 px-6 py-6 lg:flex-row"
+        style={
+          {
+            "--spacing": "48px",
+          } as React.CSSProperties
+        }
+      >
+        <div className="flex w-full flex-col gap-4 lg:h-[calc(100svh-48px)] lg:w-2/5">
+          <div className="flex h-[70%] w-full flex-col gap-6 rounded-3xl p-8 px-0 font-serif text-xl text-blue-700 lg:px-8">
+            <h1 className="mb-4 font-serif text-5xl text-blue-700 md:text-7xl">
+              Ethan Grebmeier
+            </h1>
+            <p className="text-pretty font-serif text-blue-700">
+              Hello there, my name is Ethan Grebmeier and I am a{" "}
+              <span className="italic"> Design Engineer </span>
+              based out of Seattle, Washington.
+            </p>
+            <p>
+              I am passionate about making the web a{" "}
+              <span className="italic"> joyful </span>place.{" "}
+            </p>
+          </div>
         </div>
+
+        <Showcase />
       </div>
-    </main>
+    </div>
   );
 }
