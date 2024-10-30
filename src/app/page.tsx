@@ -1,8 +1,5 @@
-import { ArrowRight, Scroll } from "lucide-react";
 import { Afacad } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
-import FullscreenColumn from "~/components/home/fullscreen-column";
+
 import Showcase from "~/components/home/showcase";
 import { cn } from "~/helpers/cn";
 
@@ -20,9 +17,6 @@ export default async function Page() {
         font.className,
       )}
     >
-      {/* <div className="mb-4 flex  items-center rounded-xl bg-white px-4 py-2">
-        <h1 className="text-2xl font-bold">Fillaneed</h1>
-      </div> */}
       <div
         className="flex w-full flex-col justify-between gap-6 px-6 py-6 lg:flex-row"
         style={
