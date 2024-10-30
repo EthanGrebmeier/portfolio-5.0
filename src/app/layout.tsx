@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Provider } from "jotai";
 
 import "../styles/globals.css";
+import { MotionConfig } from "framer-motion";
 
 const BodyFont = Plus_Jakarta_Sans({
   weight: ["400", "600"],
@@ -36,11 +37,13 @@ export default function RootLayout({
   return (
     <html lang="en" translate="no">
       <Provider>
-        <body
-          className={`${BodyFont.className} ${junicode.variable} overflow-x-hidden`}
-        >
-          {children}
-        </body>
+        <MotionConfig reducedMotion="user">
+          <body
+            className={`${BodyFont.className} ${junicode.variable} overflow-x-hidden`}
+          >
+            {children}
+          </body>
+        </MotionConfig>
       </Provider>
     </html>
   );
