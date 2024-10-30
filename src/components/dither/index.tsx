@@ -1,30 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import PrintOutImage from "./print-out-image";
 import DitherControls from "./dither-controls";
 import { useMediaQuery } from "usehooks-ts";
+
+import { useAtom } from "jotai";
+import { ditherColorOneAtom, ditherColorTwoAtom } from "./atom";
+import type { DitherType, RGBA } from "./types";
+import { ditherTypes, getRgbaFromHex } from "~/lib/dither";
+import SavedImagesDialog from "./saved-images-dialog";
+import { Image as ImageIcon } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
-import TactileButton from "../TactileButton";
-import { useAtom } from "jotai";
-import {
-  ditherColorOneAtom,
-  ditherColorTwoAtom,
-  paletteSwatchesAtom,
-} from "./atom";
-import { DitherType, RGBA } from "./types";
-import { ditherTypes, getRgbaFromHex } from "~/lib/dither";
-import SavedImages from "./saved-images";
-import Button from "../ui/button";
-import SavedImagesDialog from "./saved-images-dialog";
-import { Image as ImageIcon } from "lucide-react";
+import { Button } from "../ui/button";
 
 const Dither = () => {
   const [imageSrc, setImageSrc] = React.useState<string>();
@@ -32,9 +26,8 @@ const Dither = () => {
   const [ditheredSource, setDitheredSource] = React.useState<string>();
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const offScreenCanvasRef = React.useRef<HTMLCanvasElement>(null);
-  const [ditherColorOne, setDitherColorOne] = useAtom(ditherColorOneAtom);
-  const [ditherColorTwo, setDitherColorTwo] = useAtom(ditherColorTwoAtom);
-  const [isSavedImagesOpen, setIsSavedImagesOpen] = useState(false);
+  const [ditherColorOne] = useAtom(ditherColorOneAtom);
+  const [ditherColorTwo] = useAtom(ditherColorTwoAtom);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -73,8 +66,8 @@ const Dither = () => {
     setDitheredSource(canvas.toDataURL());
   };
 
-  const width = React.useMemo(() => window.innerWidth, [window.innerWidth]);
-  const height = React.useMemo(() => window.innerHeight, [window.innerHeight]);
+  const width = React.useMemo(() => window.innerWidth, []);
+  const height = React.useMemo(() => window.innerHeight, []);
 
   useEffect(() => {
     if (!canvasRef.current || !offScreenCanvasRef.current) return;
@@ -82,7 +75,7 @@ const Dither = () => {
     canvasRef.current.height = height;
     offScreenCanvasRef.current.width = width;
     offScreenCanvasRef.current.height = height;
-  }, []);
+  }, [height, width]);
 
   useEffect(() => {
     if (!imageSrc) return;
@@ -106,12 +99,12 @@ const Dither = () => {
   return (
     <div className="flex w-full flex-1 justify-center overflow-hidden lg:items-center">
       <div className="flex flex-1 flex-col items-center gap-4 p-2 lg:flex-row">
-        <div className="flex  flex-col gap-4">
+        <div className="flex flex-col gap-4">
           {isDesktop ? (
             <div className="flex max-w-[240px] flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <p className="text-lg  font-semibold">Controls</p>
-                <div className="h-fit w-[240px] rounded-xl border-2 border-black p-2 transition-all ">
+                <p className="text-lg font-semibold">Controls</p>
+                <div className="h-fit w-[240px] rounded-xl border-2 border-black p-2 transition-all">
                   <DitherControls
                     ditherType={ditherType}
                     setDitherType={setDitherType}
@@ -131,7 +124,7 @@ const Dither = () => {
               <Drawer repositionInputs={false}>
                 <div className="absolute bottom-8 right-6 z-20">
                   <DrawerTrigger asChild>
-                    <Button className=" flex items-center gap-2 border-[3px] border-black bg-blue-400">
+                    <Button className="flex items-center gap-2 border-[3px] border-black bg-blue-400">
                       {ditheredSource ? "Edit Image" : "Dither Image"}
                       <ImageIcon size={35} />
                     </Button>
@@ -155,11 +148,7 @@ const Dither = () => {
           )}
         </div>
         {ditheredSource && (
-          <PrintOutImage
-            onSave={() => setIsSavedImagesOpen(true)}
-            key={ditheredSource}
-            ditheredSource={ditheredSource}
-          />
+          <PrintOutImage key={ditheredSource} ditheredSource={ditheredSource} />
         )}
       </div>
       <canvas ref={canvasRef} className="relative hidden"></canvas>
