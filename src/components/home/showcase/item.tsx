@@ -24,7 +24,21 @@ type ShowcaseItemProps = {
     className?: string;
     showOverlay: boolean;
   };
+  theme?: keyof typeof themes;
 };
+
+const themes = {
+  green: {
+    text: "text-lime-400",
+    badge: "bg-lime-400 text-black",
+    background: "bg-blue-400",
+  },
+  blue: {
+    text: "text-white",
+    badge: "bg-white text-blue-700",
+    background: "bg-[#fdfbd4]",
+  },
+} as const;
 
 const ShowcaseItem = ({
   title,
@@ -33,25 +47,48 @@ const ShowcaseItem = ({
   link,
   backgroundImage,
   overlay,
+  theme = "blue",
 }: ShowcaseItemProps) => {
   return (
-    <Link href={link.href} className="group isolate h-full w-full">
-      <div className="absolute inset-0 z-20 flex items-center justify-center p-8">
+    <Link
+      href={link.href}
+      className={cn("group isolate h-full w-full", themes[theme].background)}
+    >
+      <div className="absolute inset-0 z-20 flex items-center justify-center p-4 sm:p-8">
         <div className="flex h-full w-full flex-col justify-between gap-4 text-white">
-          <div className="flex w-full justify-between gap-2">
+          <div className="flex w-full flex-col-reverse justify-between gap-2 sm:flex-row">
             <div className="flex flex-col">
               <div className="flex gap-2">
-                <h2 className="font-serif text-5xl font-light md:text-7xl">
+                <h2
+                  className={cn(
+                    "font-serif text-5xl font-light sm:text-7xl",
+                    themes[theme].text,
+                  )}
+                >
                   {title}
                 </h2>
               </div>
-              <p className="font-serif text-xl italic leading-tight text-white">
+              <p
+                className={cn(
+                  "font-serif text-xl italic leading-tight text-white",
+                  themes[theme].text,
+                )}
+              >
                 {subtitle}
               </p>
             </div>
-            {badge && <Badge Icon={badge.icon}>{badge.text}</Badge>}
+            {badge && (
+              <Badge className={themes[theme].badge} Icon={badge.icon}>
+                {badge.text}
+              </Badge>
+            )}
           </div>
-          <div className="flex w-full justify-end justify-self-end text-white">
+          <div
+            className={cn(
+              "flex w-full justify-end justify-self-end text-white",
+              themes[theme].text,
+            )}
+          >
             <span className="flex items-center gap-2 text-2xl group-hover:underline">
               {" "}
               {link.text}

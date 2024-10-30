@@ -61,7 +61,7 @@ const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
         onMouseLeave={onMouseLeave}
       >
         {children}
-        <div className="absolute bottom-8 left-8 z-10 flex gap-2 text-4xl text-white">
+        <div className="absolute bottom-4 left-4 z-10 flex gap-2 text-4xl text-white sm:bottom-8 sm:left-8">
           <ButtonIcon Icon={ArrowLeft} onClick={handlePreviousSlide} />
           <ButtonIcon
             Icon={Pause}
