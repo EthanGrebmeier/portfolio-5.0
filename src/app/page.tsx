@@ -13,7 +13,7 @@ export default async function Page() {
   return (
     <div
       className={cn(
-        "flex w-full flex-col items-center bg-background",
+        "mx-auto flex w-full max-w-screen-2xl flex-col items-center bg-background",
         font.className,
       )}
     >

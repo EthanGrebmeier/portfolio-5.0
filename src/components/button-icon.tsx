@@ -1,4 +1,4 @@
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "framer-motion";
 import React from "react";
 import { cn } from "~/helpers/cn";
 import { motion } from "framer-motion";
@@ -25,28 +25,30 @@ const ButtonIcon = ({
       )}
       {...props}
     >
-      <AnimatePresence initial={false} mode="wait">
-        {(!IconTwo || !showIconTwo) && (
-          <motion.div
-            key={"one"}
-            initial={{ y: 20, filter: "blur(2px)" }}
-            animate={{ y: 0, filter: "blur(0px)" }}
-            exit={{ y: 20, filter: "blur(2px)" }}
-          >
-            <Icon size={24} />
-          </motion.div>
-        )}
-        {IconTwo && showIconTwo && (
-          <motion.div
-            key={"two"}
-            initial={{ y: 20, filter: "blur(2px)" }}
-            animate={{ y: 0, filter: "blur(0px)" }}
-            exit={{ y: 20, filter: "blur(2px)" }}
-          >
-            <IconTwo size={24} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <MotionConfig transition={{ duration: 0.2, type: "spring", bounce: 0 }}>
+        <AnimatePresence initial={false} mode="wait">
+          {(!IconTwo || !showIconTwo) && (
+            <motion.div
+              key={"one"}
+              initial={{ y: 20, filter: "blur(2px)" }}
+              animate={{ y: 0, filter: "blur(0px)" }}
+              exit={{ y: 20, filter: "blur(2px)" }}
+            >
+              <Icon size={24} />
+            </motion.div>
+          )}
+          {IconTwo && showIconTwo && (
+            <motion.div
+              key={"two"}
+              initial={{ y: 20, filter: "blur(2px)" }}
+              animate={{ y: 0, filter: "blur(0px)" }}
+              exit={{ y: 20, filter: "blur(2px)" }}
+            >
+              <IconTwo size={24} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </MotionConfig>
     </button>
   );
 };
