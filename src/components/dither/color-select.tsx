@@ -1,8 +1,8 @@
 import React from "react";
 import ColorPalette from "./color-palette";
-import { Color } from "./types";
-import { useOutsideAlerter } from "~/hooks/useOutsideAlert";
+import type { Color } from "./types";
 import { AnimatePresence } from "framer-motion";
+import { useOnClickOutside } from "usehooks-ts";
 
 type ColorSelectorProps = {
   color: Color;
@@ -13,7 +13,7 @@ const ColorSelector = ({ color, onSelect }: ColorSelectorProps) => {
   const [showPalette, setShowPalette] = React.useState(false);
 
   const ref = React.useRef<HTMLDivElement>(null);
-  useOutsideAlerter(ref, () => {
+  useOnClickOutside(ref, () => {
     setShowPalette(false);
   });
 
@@ -25,7 +25,9 @@ const ColorSelector = ({ color, onSelect }: ColorSelectorProps) => {
             <ColorPalette
               setDitherColor={(color, shouldClose = false) => {
                 onSelect(color);
-                shouldClose && setShowPalette(false);
+                if (shouldClose) {
+                  setShowPalette(false);
+                }
               }}
               ditherColor={color}
             />

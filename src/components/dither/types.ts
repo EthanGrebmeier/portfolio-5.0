@@ -1,4 +1,4 @@
-import { ditherTypes } from "~/lib/dither";
+import type { ditherTypes } from "~/lib/dither";
 
 export type DitherType = keyof typeof ditherTypes;
 

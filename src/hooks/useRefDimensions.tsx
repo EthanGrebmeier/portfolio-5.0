@@ -7,8 +7,8 @@ const useRefDimensions = (ref: RefObject<HTMLElement | null>) => {
       const { current } = ref;
       const observer = new ResizeObserver((entries) => {
         setDimensions({
-          width: Math.round(entries[0]?.contentRect?.width || 0),
-          height: Math.round(entries[0]?.contentRect?.height || 0),
+          width: Math.round(entries[0]?.contentRect?.width ?? 0),
+          height: Math.round(entries[0]?.contentRect?.height ?? 0),
         });
       });
       observer.observe(ref.current);
