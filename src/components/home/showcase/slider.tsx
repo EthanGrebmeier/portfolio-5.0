@@ -60,9 +60,10 @@ const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
         onMouseEnter={onHover}
         onMouseLeave={onMouseLeave}
         onPan={(e, info) => {
-          if (info.delta.x > 0) {
+          e.stopPropagation();
+          if (info.delta.x > 30) {
             handlePreviousSlide();
-          } else if (info.delta.x < 0) {
+          } else if (info.delta.x < -30) {
             handleNextSlide();
           }
         }}
