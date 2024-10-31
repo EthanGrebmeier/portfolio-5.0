@@ -65,4 +65,30 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .blog {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: #1d4ed8;
+      font-family: "ui-serif";
+      text-wrap: balance;
+    }
+
+    p {
+      line-height: 1.25;
+      text-wrap: pretty;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    p {
+      font-size: 1.3rem;
+    }
+  }
 }

@@ -1,11 +1,11 @@
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Afacad, Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { Provider } from "jotai";
 
 import "../styles/globals.css";
 import { MotionConfig } from "framer-motion";
 
-const BodyFont = Plus_Jakarta_Sans({
+const bodyFont = Afacad({
   weight: ["400", "600"],
   subsets: ["latin"],
   display: "swap",
@@ -39,7 +39,7 @@ export default function RootLayout({
       <Provider>
         <MotionConfig reducedMotion="user">
           <body
-            className={`${BodyFont.className} ${junicode.variable} overflow-x-hidden`}
+            className={`${bodyFont.className} ${junicode.variable} overflow-x-hidden`}
           >
             {children}
           </body>

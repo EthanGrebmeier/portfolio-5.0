@@ -1,20 +1,12 @@
-import { Afacad } from "next/font/google";
-
+import Arrow from "~/components/home/arrow";
 import Showcase from "~/components/home/showcase";
 import { cn } from "~/helpers/cn";
-
-const font = Afacad({
-  weight: ["400", "600"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default async function Page() {
   return (
     <div
       className={cn(
         "mx-auto flex w-full max-w-screen-2xl flex-col items-center bg-background",
-        font.className,
       )}
     >
       <div
@@ -26,7 +18,7 @@ export default async function Page() {
         }
       >
         <div className="flex w-full flex-col gap-4 lg:h-[calc(100svh-48px)] lg:w-2/5">
-          <div className="flex h-[70%] w-full flex-col gap-6 rounded-3xl p-8 px-0 font-serif text-xl text-blue-700 sm:px-8">
+          <div className="flex w-full flex-1 flex-col gap-6 rounded-3xl p-8 px-0 font-serif text-xl text-blue-700 sm:px-8">
             <h1 className="mb-4 font-serif text-6xl text-blue-700 sm:text-7xl">
               Ethan Grebmeier
             </h1>
@@ -39,6 +31,12 @@ export default async function Page() {
               I am passionate about making the web a{" "}
               <span className="italic"> joyful </span>place.{" "}
             </p>
+            <div className="flex flex-1 flex-col gap-12">
+              <p>Here are a few of my projects</p>
+              <div className="flex flex-1">
+                <Arrow />
+              </div>
+            </div>
           </div>
         </div>
 

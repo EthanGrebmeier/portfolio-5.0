@@ -6,6 +6,7 @@ import Fillaneed from "./items/fillaneed";
 import Dither from "./items/dither";
 import { AnimatePresence } from "framer-motion";
 import ShowcaseSlider from "./slider";
+import { motion } from "framer-motion";
 
 const items = [<Fillaneed key="fillaneed" />, <Dither key="dither" />];
 
@@ -71,20 +72,27 @@ const Showcase = () => {
 
   return (
     <FullscreenColumn className="relative w-full overflow-hidden rounded-3xl">
-      <AnimatePresence custom={direction} initial={false} mode="popLayout">
-        <ShowcaseSlider
-          onHover={stopInterval}
-          onMouseLeave={resetInterval}
-          key={currentItem}
-          direction={direction}
-          handleNextSlide={handleNextSlide}
-          handlePreviousSlide={handlePreviousSlide}
-          isPlaying={isPlaying}
-          togglePlay={togglePlay}
-        >
-          {content}
-        </ShowcaseSlider>
-      </AnimatePresence>
+      <motion.div
+        className="h-full w-full"
+        initial={{ opacity: 0, filter: "blur(4px)" }}
+        animate={{ opacity: 1, filter: "blur(0px)" }}
+        transition={{ duration: 0.6, delay: 0.8, ease: "linear" }}
+      >
+        <AnimatePresence custom={direction} initial={false} mode="popLayout">
+          <ShowcaseSlider
+            onHover={stopInterval}
+            onMouseLeave={resetInterval}
+            key={currentItem}
+            direction={direction}
+            handleNextSlide={handleNextSlide}
+            handlePreviousSlide={handlePreviousSlide}
+            isPlaying={isPlaying}
+            togglePlay={togglePlay}
+          >
+            {content}
+          </ShowcaseSlider>
+        </AnimatePresence>
+      </motion.div>
     </FullscreenColumn>
   );
 };
