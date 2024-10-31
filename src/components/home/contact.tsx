@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import ResponsiveDialog from "../ui/responsive-dialog";
 import { Button } from "../ui/button";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
@@ -39,6 +39,12 @@ const Contact = () => {
       }, 1300);
     },
   });
+
+  useLayoutEffect(() => {
+    if (isOpen && contactRef) {
+      contactRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isOpen]);
 
   return (
     <div ref={wrapperRef} className="relative w-full">
