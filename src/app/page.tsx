@@ -1,7 +1,10 @@
+import Image from "next/image";
 import Arrow from "~/components/home/arrow";
 import Contact from "~/components/home/contact";
 import FullscreenColumn from "~/components/home/fullscreen-column";
 import Showcase from "~/components/home/showcase";
+import RainIcon from "~/components/svg/rain";
+import SmileIcon from "~/components/svg/smile";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/helpers/cn";
 
@@ -29,11 +32,25 @@ export default async function Page() {
               <p className="text-pretty">
                 Hello there, my name is Ethan Grebmeier and I am a{" "}
                 <span className="italic"> Design Engineer </span>
-                based out of Seattle, Washington.
+                based out of beautiful Seattle, Washington.
+                <Image
+                  className="ml-1 inline"
+                  width={24}
+                  height={24}
+                  alt="Raining animation"
+                  src="/images/rainanimated.gif"
+                />
               </p>
               <p className="text-pretty">
                 I am passionate about making the web a{" "}
                 <span className="italic"> joyful </span>place.{" "}
+                <Image
+                  className="inline"
+                  width={24}
+                  height={24}
+                  alt="Smiling animation"
+                  src="/images/smileanimated.gif"
+                />
               </p>
               <div className="flex flex-1 flex-col gap-12">
                 <p>Here&apos;s some work that I&apos;m proud of</p>

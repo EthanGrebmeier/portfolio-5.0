@@ -14,6 +14,7 @@ const Contact = () => {
   const contactRef = React.useRef<HTMLDivElement>(null);
   const [wrapperRef, dimensions] = useMeasure();
   const [content, setContent] = React.useState("");
+  const areaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -25,7 +26,6 @@ const Contact = () => {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      console.log("Going");
       await fetch("/contact", {
         method: "POST",
         body: JSON.stringify({
@@ -41,8 +41,9 @@ const Contact = () => {
   });
 
   useLayoutEffect(() => {
-    if (isOpen && contactRef) {
+    if (isOpen) {
       contactRef.current?.scrollIntoView({ behavior: "smooth" });
+      areaRef.current?.focus();
     }
   }, [isOpen]);
 
@@ -106,6 +107,7 @@ const Contact = () => {
                     required
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
+                    ref={areaRef}
                   />
                   <div className="flex w-full gap-12">
                     <Button
