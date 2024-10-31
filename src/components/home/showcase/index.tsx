@@ -38,7 +38,7 @@ const Showcase = () => {
     }
   }, []);
 
-  const resetInterval = useCallback(() => {
+  const onMouseLeave = useCallback(() => {
     if (!isPlaying) {
       return;
     }
@@ -48,6 +48,7 @@ const Showcase = () => {
     }
 
     intervalRef.current = setInterval(() => {
+      setDirection(1);
       setCurrentItem((currentItem + 1) % items.length);
     }, DURATION);
   }, [currentItem, isPlaying]);
@@ -71,29 +72,27 @@ const Showcase = () => {
   }, []);
 
   return (
-    <FullscreenColumn className="relative w-full overflow-hidden rounded-3xl">
-      <motion.div
-        className="h-full w-full"
-        initial={{ opacity: 0, filter: "blur(4px)" }}
-        animate={{ opacity: 1, filter: "blur(0px)" }}
-        transition={{ duration: 0.6, delay: 0.8, ease: "linear" }}
-      >
-        <AnimatePresence custom={direction} initial={false} mode="popLayout">
-          <ShowcaseSlider
-            onHover={stopInterval}
-            onMouseLeave={resetInterval}
-            key={currentItem}
-            direction={direction}
-            handleNextSlide={handleNextSlide}
-            handlePreviousSlide={handlePreviousSlide}
-            isPlaying={isPlaying}
-            togglePlay={togglePlay}
-          >
-            {content}
-          </ShowcaseSlider>
-        </AnimatePresence>
-      </motion.div>
-    </FullscreenColumn>
+    <motion.div
+      className="w-full flex-1 overflow-hidden rounded-3xl"
+      initial={{ opacity: 0, filter: "blur(4px)" }}
+      animate={{ opacity: 1, filter: "blur(0px)" }}
+      transition={{ duration: 0.6, delay: 1.4, ease: "linear" }}
+    >
+      <AnimatePresence custom={direction} initial={false} mode="popLayout">
+        <ShowcaseSlider
+          onHover={stopInterval}
+          onMouseLeave={onMouseLeave}
+          key={currentItem}
+          direction={direction}
+          handleNextSlide={handleNextSlide}
+          handlePreviousSlide={handlePreviousSlide}
+          isPlaying={isPlaying}
+          togglePlay={togglePlay}
+        >
+          {content}
+        </ShowcaseSlider>
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

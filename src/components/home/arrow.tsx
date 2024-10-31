@@ -17,9 +17,7 @@ const variants = {
 
 const Arrow = () => {
   return (
-    <MotionConfig
-      transition={{ duration: 1.4, delay: 0, bounce: 0, type: "spring" }}
-    >
+    <MotionConfig transition={{ duration: 2, delay: 0.3, ease: "easeInOut" }}>
       <motion.svg
         key="desktop"
         initial="initial"

@@ -1,9 +1,10 @@
-import { Afacad, Plus_Jakarta_Sans } from "next/font/google";
+import { Afacad } from "next/font/google";
 import localFont from "next/font/local";
 import { Provider } from "jotai";
 
 import "../styles/globals.css";
 import { MotionConfig } from "framer-motion";
+import QueryClientWrapper from "~/components/query-client";
 
 const bodyFont = Afacad({
   weight: ["400", "600"],
@@ -37,13 +38,15 @@ export default function RootLayout({
   return (
     <html lang="en" translate="no">
       <Provider>
-        <MotionConfig reducedMotion="user">
-          <body
-            className={`${bodyFont.className} ${junicode.variable} overflow-x-hidden`}
-          >
-            {children}
-          </body>
-        </MotionConfig>
+        <QueryClientWrapper>
+          <MotionConfig reducedMotion="user">
+            <body
+              className={`${bodyFont.className} ${junicode.variable} overflow-x-hidden`}
+            >
+              {children}
+            </body>
+          </MotionConfig>
+        </QueryClientWrapper>
       </Provider>
     </html>
   );

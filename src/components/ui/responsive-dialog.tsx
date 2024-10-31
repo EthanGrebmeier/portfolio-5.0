@@ -42,7 +42,7 @@ const ResponsiveDialog = ({
 
   if (isDesktop) {
     return (
-      <Dialog>
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent className={bodyClassName}>
           <DialogHeader className={cn(headerClassName)}>

@@ -20,7 +20,7 @@ const ButtonIcon = ({
   return (
     <button
       className={cn(
-        "duration-[250ms] overflow-hidden rounded-full bg-white/20 p-1 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-blue-800",
+        "overflow-hidden rounded-full bg-white/20 p-1 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-blue-800",
         className,
       )}
       {...props}
