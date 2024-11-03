@@ -57,7 +57,7 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
           {panelName === "palette" ? (
             <div className="">
               <div className="">
-                <h2 className="text-base font-bold">Palette</h2>
+                <h2 className="text-xl">Palette</h2>
               </div>
               <div className="z-20 flex justify-between gap-2">
                 <div className="group grid w-full grid-cols-6 gap-1 py-1">
@@ -117,7 +117,7 @@ const ColorPalette = ({ ditherColor, setDitherColor }: ColorPaletteProps) => {
             </div>
           ) : (
             <div className="relative w-full px-2 py-2">
-              <h2 className="mb-2 text-xl font-bold">Add Color </h2>
+              <h2 className="mb-2 text-xl">Add Color </h2>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();

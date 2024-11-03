@@ -101,10 +101,10 @@ const Dither = () => {
       <div className="flex flex-1 flex-col items-center gap-4 p-2 lg:flex-row">
         <div className="flex flex-col gap-4">
           {isDesktop ? (
-            <div className="flex max-w-[240px] flex-col gap-4">
+            <div className="flex max-w-[240px] flex-col gap-12 py-2">
               <div className="flex flex-col gap-2">
-                <p className="text-lg font-semibold">Controls</p>
-                <div className="h-fit w-[240px] rounded-xl border-2 border-black p-2 transition-all">
+                <p className="text-xl">Controls</p>
+                <div className="h-fit w-[240px] transition-all">
                   <DitherControls
                     ditherType={ditherType}
                     setDitherType={setDitherType}
@@ -114,7 +114,7 @@ const Dither = () => {
               </div>
               <div className="flex flex-1 flex-col gap-2">
                 <div className="flex justify-between gap-2">
-                  <p className="text-lg font-semibold"> Saved Images</p>
+                  <p className="text-xl"> Saved Images</p>
                 </div>
                 <SavedImagesDialog />
               </div>
@@ -124,7 +124,7 @@ const Dither = () => {
               <Drawer repositionInputs={false}>
                 <div className="absolute bottom-8 right-6 z-20">
                   <DrawerTrigger asChild>
-                    <Button className="flex items-center gap-2 border-[3px] border-black bg-blue-400">
+                    <Button className="flex items-center gap-2">
                       {ditheredSource ? "Edit Image" : "Dither Image"}
                       <ImageIcon size={35} />
                     </Button>

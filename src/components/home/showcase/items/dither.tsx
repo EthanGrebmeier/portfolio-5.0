@@ -11,7 +11,7 @@ const Dither = () => {
       title="Dither"
       subtitle="Give your images a retro look."
       badge={{ icon: Shapes, text: "Toy" }}
-      link={{ href: "/dither", text: "Check it out" }}
+      links={[{ href: "/dither", text: "Check it out" }]}
       backgroundImage={{
         src: background,
         alt: "The Mona Lisa with a blue dither effect",

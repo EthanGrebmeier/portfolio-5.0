@@ -10,9 +10,9 @@ const Header = () => {
           width={60}
           height={60}
           alt="My doodled face"
-          src="/images/Smile2.svg"
+          src="/images/smileanimated.gif"
         />
-        <p className="font-serif text-4xl text-blue-700 group-hover:underline">
+        <p className="font-serif text-4xl tracking-tight text-blue-700 group-hover:underline">
           {" "}
           Ethan Grebmeier{" "}
         </p>

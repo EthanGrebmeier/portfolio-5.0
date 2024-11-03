@@ -24,9 +24,9 @@ export default async function Page() {
         }
       >
         <div className="flex w-full flex-col gap-4 lg:h-[calc(100svh-48px)] lg:w-2/5">
-          <div className="flex w-full flex-1 flex-col gap-2 px-0 pb-7 pt-8 sm:px-8">
+          <div className="flex w-full flex-1 flex-col gap-2 px-0 pb-6 pt-8 sm:px-8">
             <div className="flex w-full flex-1 flex-col gap-6 rounded-3xl font-serif text-xl text-blue-700">
-              <h1 className="mb-4 font-serif text-6xl text-blue-700 sm:text-7xl">
+              <h1 className="mb-4 font-serif text-6xl tracking-tight text-blue-700 sm:text-7xl">
                 Ethan Grebmeier
               </h1>
               <p className="text-pretty">

@@ -14,10 +14,16 @@ const Fillaneed = () => {
         icon: Hammer,
         text: "Project",
       }}
-      link={{
-        href: "https://fillaneed.xyz",
-        text: "Get Started",
-      }}
+      links={[
+        {
+          href: "https://fillaneed.xyz",
+          text: "Get Started",
+        },
+        {
+          href: "/blog/fillaneed",
+          text: "Read Case Study",
+        },
+      ]}
       backgroundImage={{
         src: background,
         alt: "woman laying in grass",

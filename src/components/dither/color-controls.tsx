@@ -2,7 +2,7 @@ import React from "react";
 import ColorSelector from "./color-select";
 import { useAtom } from "jotai";
 import { ditherColorOneAtom, ditherColorTwoAtom } from "./atom";
-import { ArrowRightLeft, RotateCw } from "lucide-react";
+import { ArrowRightLeft } from "lucide-react";
 
 const ColorControls = () => {
   const [ditherColorOne, setDitherColorOne] = useAtom(ditherColorOneAtom);
