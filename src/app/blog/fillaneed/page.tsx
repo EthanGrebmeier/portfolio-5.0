@@ -16,12 +16,20 @@ const BlogPage = () => {
         />
         <section className="border-b border-blue-700 pb-12">
           <div className="mb-8 mt-4 flex flex-col gap-2">
-            <div className="relative h-[440px] w-full overflow-hidden rounded-xl">
+            <div className="xs:h-[440px] relative h-[600px] w-full overflow-hidden rounded-xl border border-blue-700">
               <Image
+                priority
                 fill
                 src="/images/fillaneed/apartment.png"
                 alt="Fillaneed"
-                className="h-full w-full object-cover"
+                className="xs:block hidden h-full w-full object-cover"
+              />
+              <Image
+                priority
+                fill
+                src="/images/fillaneed/apartmentmobile.png"
+                alt="Fillaneed"
+                className="xs:hidden block h-full w-full object-cover"
               />
             </div>
             <p className="text-sm italic text-blue-700">

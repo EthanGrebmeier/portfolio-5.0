@@ -81,13 +81,6 @@
     p {
       line-height: 1.25;
       text-wrap: pretty;
-    }
-
-    h1 {
-      font-size: 3rem;
-    }
-
-    p {
       font-size: 1.3rem;
     }
   }
