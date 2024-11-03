@@ -17,15 +17,15 @@ type BlogTitleProps = {
 const BlogTitle = ({ title, link }: BlogTitleProps) => {
   const [hasScrolled, setHasScrolled] = React.useState(false);
 
-  const handleScroll = () => {
-    if (window.scrollY > 40) {
-      setHasScrolled(true);
-    } else {
-      setHasScrolled(false);
-    }
-  };
-
   useMemo(() => {
+    if (typeof window === "undefined") return;
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+    };
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
