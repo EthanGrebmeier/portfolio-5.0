@@ -28,6 +28,11 @@ const junicode = localFont({
   variable: "--font-serif",
 });
 
+export const metadata = {
+  title: "Ethan Grebmeier",
+  description: "Ethan Grebmeier's portfolio",
+};
+
 export default function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages

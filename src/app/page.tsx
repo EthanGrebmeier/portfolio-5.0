@@ -3,9 +3,6 @@ import Arrow from "~/components/home/arrow";
 import Contact from "~/components/home/contact";
 import FullscreenColumn from "~/components/home/fullscreen-column";
 import Showcase from "~/components/home/showcase";
-import RainIcon from "~/components/svg/rain";
-import SmileIcon from "~/components/svg/smile";
-import { Button } from "~/components/ui/button";
 import { cn } from "~/helpers/cn";
 
 export default async function Page() {
