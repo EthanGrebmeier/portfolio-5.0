@@ -114,7 +114,7 @@ const BlogPage = () => {
                     alt="fillaneed keep it a secret mode"
                   />
                 </div>
-                <div className="flex flex-col gap-2 text-end">
+                <div className="flex flex-col gap-2">
                   <h3 className="font-serif text-3xl">Gift Receipts</h3>
                   <p className="">The most exciting part!</p>
                   <p className="">
