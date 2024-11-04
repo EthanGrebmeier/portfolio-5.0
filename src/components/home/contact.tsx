@@ -1,20 +1,16 @@
 "use client";
-import React, { useEffect, useLayoutEffect } from "react";
-import ResponsiveDialog from "../ui/responsive-dialog";
+import React, { useLayoutEffect } from "react";
+
 import { Button } from "../ui/button";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useOnClickOutside } from "usehooks-ts";
-import useMeasure from "react-use-measure";
 import { CheckCircleIcon, LoaderCircleIcon, XIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { cn } from "~/helpers/cn";
-import Image from "next/image";
-import Link from "next/link";
 
 const Contact = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const contactRef = React.useRef<HTMLDivElement>(null);
-  const [wrapperRef, dimensions] = useMeasure();
   const [content, setContent] = React.useState("");
   const areaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -50,10 +46,7 @@ const Contact = () => {
   }, [isOpen]);
 
   return (
-    <div
-      ref={wrapperRef}
-      className="relative flex w-full items-center justify-between gap-2 sm:px-8 lg:px-0"
-    >
+    <div className="relative flex w-full items-center justify-between gap-2 sm:px-8 lg:px-0">
       <div className="flex flex-col gap-2">
         <p className="font-serif text-xl text-blue-700"> Want to chat? </p>
         <Button className="w-fit" onClick={() => setIsOpen(true)}>
@@ -69,7 +62,7 @@ const Contact = () => {
             <motion.div
               initial={{ width: 0, height: 0, opacity: 0, filter: "blur(4px)" }}
               animate={{
-                width: dimensions.width,
+                width: 320,
                 height: 240,
                 opacity: 1,
                 filter: "blur(0px)",
@@ -201,12 +194,6 @@ const Contact = () => {
         )}
       </AnimatePresence>
     </div>
-  );
-
-  return (
-    <ResponsiveDialog title="Contact" trigger={<Button>Get in touch</Button>}>
-      Hey
-    </ResponsiveDialog>
   );
 };
 

@@ -76,7 +76,7 @@ export default async function Page() {
         <FullscreenColumn className="relative flex w-full overflow-hidden">
           <Showcase />
         </FullscreenColumn>
-        <div className="block lg:hidden">
+        <div className="flex items-center justify-between gap-2 lg:hidden">
           <Contact />
           <div>
             <Link href="https://github.com/ethan-grebmeier">
