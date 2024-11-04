@@ -8,6 +8,8 @@ import useMeasure from "react-use-measure";
 import { CheckCircleIcon, LoaderCircleIcon, XIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { cn } from "~/helpers/cn";
+import Image from "next/image";
+import Link from "next/link";
 
 const Contact = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -48,7 +50,10 @@ const Contact = () => {
   }, [isOpen]);
 
   return (
-    <div ref={wrapperRef} className="relative w-full sm:px-8 lg:px-0">
+    <div
+      ref={wrapperRef}
+      className="relative flex w-full items-center justify-between gap-2 sm:px-8 lg:px-0"
+    >
       <div className="flex flex-col gap-2">
         <p className="font-serif text-xl text-blue-700"> Want to chat? </p>
         <Button className="w-fit" onClick={() => setIsOpen(true)}>

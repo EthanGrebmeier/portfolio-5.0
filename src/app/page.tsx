@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Arrow from "~/components/home/arrow";
 import Contact from "~/components/home/contact";
 import FullscreenColumn from "~/components/home/fullscreen-column";
@@ -56,8 +57,18 @@ export default async function Page() {
                 </div>
               </div>
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden items-center justify-between lg:flex">
               <Contact />
+              <div>
+                <Link href="https://github.com/ethangrebmeier">
+                  <Image
+                    width={32}
+                    height={32}
+                    alt="Github logo"
+                    src="/images/github-mark.svg"
+                  />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -67,6 +78,16 @@ export default async function Page() {
         </FullscreenColumn>
         <div className="block lg:hidden">
           <Contact />
+          <div>
+            <Link href="https://github.com/ethan-grebmeier">
+              <Image
+                width={44}
+                height={44}
+                alt="Github logo"
+                src="/images/github-mark.svg"
+              />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
