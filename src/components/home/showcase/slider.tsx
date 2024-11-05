@@ -31,8 +31,23 @@ const variants = {
   }),
 };
 
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
+
 const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
-  ({ children, onHover, onMouseLeave, direction }, ref) => {
+  (
+    {
+      children,
+      onHover,
+      onMouseLeave,
+      direction,
+      handleNextSlide,
+      handlePreviousSlide,
+    },
+    ref,
+  ) => {
     return (
       <motion.div
         ref={ref}
@@ -45,6 +60,18 @@ const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
         transition={{ duration: 0.8, type: "spring", bounce: 0 }}
         onMouseEnter={onHover}
         onMouseLeave={onMouseLeave}
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={1}
+        drag="x"
+        onDragEnd={(e, { offset, velocity }) => {
+          const swipe = swipePower(offset.x, velocity.x);
+
+          if (swipe < -swipeConfidenceThreshold) {
+            handleNextSlide();
+          } else if (swipe > swipeConfidenceThreshold) {
+            handlePreviousSlide();
+          }
+        }}
       >
         {children}
       </motion.div>

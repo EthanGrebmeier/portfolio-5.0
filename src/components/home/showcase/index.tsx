@@ -79,20 +79,12 @@ const Showcase = () => {
       className="w-full flex-1 overflow-hidden rounded-3xl"
       initial={{ opacity: 0, filter: "blur(4px)" }}
       animate={{ opacity: 1, filter: "blur(0px)" }}
+      onMouseEnter={stopInterval}
+      onMouseLeave={onMouseLeave}
       transition={{ duration: 0.6, delay: 1.4, ease: "linear" }}
-      onPan={(e, info) => {
-        e.stopPropagation();
-        if (info.delta.x > 14) {
-          handlePreviousSlide();
-        } else if (info.delta.x < -14) {
-          handleNextSlide();
-        }
-      }}
     >
       <AnimatePresence mode="popLayout" custom={direction} initial={false}>
         <ShowcaseSlider
-          onHover={stopInterval}
-          onMouseLeave={onMouseLeave}
           key={currentItem}
           direction={direction}
           handleNextSlide={handleNextSlide}
