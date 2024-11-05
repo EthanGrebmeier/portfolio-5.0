@@ -1,8 +1,6 @@
 "use client";
 import React, { forwardRef } from "react";
 import { motion } from "framer-motion";
-import ButtonIcon from "~/components/button-icon";
-import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 
 type ShowcaseItemProps = {
   children: React.ReactNode;
@@ -34,19 +32,7 @@ const variants = {
 };
 
 const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
-  (
-    {
-      children,
-      onHover,
-      onMouseLeave,
-      direction,
-      handleNextSlide,
-      handlePreviousSlide,
-      isPlaying,
-      togglePlay,
-    },
-    ref,
-  ) => {
+  ({ children, onHover, onMouseLeave, direction }, ref) => {
     return (
       <motion.div
         ref={ref}
@@ -59,28 +45,8 @@ const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
         transition={{ duration: 0.8, type: "spring", bounce: 0 }}
         onMouseEnter={onHover}
         onMouseLeave={onMouseLeave}
-        onPan={(e, info) => {
-          e.stopPropagation();
-          if (info.delta.x > 14) {
-            handlePreviousSlide();
-          } else if (info.delta.x < -14) {
-            handleNextSlide();
-          }
-        }}
       >
         {children}
-        <div className="absolute bottom-4 left-4 z-10 flex gap-2 text-4xl text-white sm:bottom-8 sm:left-8">
-          <ButtonIcon Icon={ArrowLeft} onClick={handlePreviousSlide} />
-          <ButtonIcon
-            Icon={Pause}
-            IconTwo={Play}
-            showIconTwo={!isPlaying}
-            onClick={togglePlay}
-          />
-          <ButtonIcon Icon={ArrowRight} onClick={handleNextSlide}>
-            next
-          </ButtonIcon>
-        </div>
       </motion.div>
     );
   },
