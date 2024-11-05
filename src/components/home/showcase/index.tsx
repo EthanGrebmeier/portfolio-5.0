@@ -72,7 +72,7 @@ const Showcase = () => {
   }, [currentItem]);
 
   const content = useMemo(() => {
-    return items[absolutePage];
+    return items[Math.abs(absolutePage)];
   }, [absolutePage]);
   return (
     <motion.div

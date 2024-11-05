@@ -74,7 +74,7 @@ const SavedImagesDialog = () => {
         </button>
       }
     >
-      <div className="max-w-4xl overflow-hidden px-0 py-6">
+      <div className="w-full max-w-4xl overflow-hidden px-0 py-6">
         <SavedImages />
       </div>
     </ResponsiveDialog>
