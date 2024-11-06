@@ -93,14 +93,14 @@ const Showcase = () => {
           togglePlay={togglePlay}
         >
           {content}
+          <Controls
+            handleNextSlide={handleNextSlide}
+            handlePreviousSlide={handlePreviousSlide}
+            isPlaying={isPlaying}
+            togglePlay={togglePlay}
+          />
         </ShowcaseSlider>
       </AnimatePresence>
-      <Controls
-        handleNextSlide={handleNextSlide}
-        handlePreviousSlide={handlePreviousSlide}
-        isPlaying={isPlaying}
-        togglePlay={togglePlay}
-      />
     </motion.div>
   );
 };

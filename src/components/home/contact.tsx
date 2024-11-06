@@ -46,7 +46,7 @@ const Contact = () => {
   }, [isOpen]);
 
   return (
-    <div className="relative flex w-full items-center justify-between gap-2 sm:px-8 lg:px-0">
+    <div className="relative flex w-full items-center justify-between gap-2">
       <div className="flex flex-col gap-2">
         <p className="font-serif text-xl text-blue-700"> Want to chat? </p>
         <Button className="w-fit" onClick={() => setIsOpen(true)}>

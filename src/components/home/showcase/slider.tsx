@@ -51,7 +51,7 @@ const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
     return (
       <motion.div
         ref={ref}
-        className="relative h-full w-full overflow-x-hidden overflow-y-visible rounded-3xl shadow-xl"
+        className="h-full w-full p-4 sm:p-8 lg:p-0"
         initial="initial"
         animate="animate"
         exit="exit"
@@ -73,7 +73,9 @@ const ShowcaseSlider = forwardRef<HTMLDivElement, ShowcaseItemProps>(
           }
         }}
       >
-        {children}
+        <div className="relative h-full w-full overflow-x-hidden overflow-y-visible rounded-3xl">
+          {children}
+        </div>
       </motion.div>
     );
   },

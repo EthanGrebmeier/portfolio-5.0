@@ -14,7 +14,7 @@ export default async function Page() {
       )}
     >
       <div
-        className="flex w-full flex-col justify-between gap-6 px-6 py-6 lg:flex-row"
+        className="flex w-full flex-col justify-between gap-6 py-6 lg:flex-row lg:px-8"
         style={
           {
             "--spacing": "48px",
@@ -22,7 +22,7 @@ export default async function Page() {
         }
       >
         <div className="flex w-full flex-col gap-4 lg:h-[calc(100svh-48px)] lg:w-2/5">
-          <div className="flex w-full flex-1 flex-col gap-2 px-0 pb-6 pt-8 sm:px-8">
+          <div className="flex w-full flex-1 flex-col gap-2 px-4 pb-6 pt-8 md:px-16 lg:px-0">
             <div className="flex w-full flex-1 flex-col gap-6 rounded-3xl font-serif text-xl text-blue-700">
               <h1 className="mb-4 font-serif text-6xl tracking-tight text-blue-700 sm:text-7xl">
                 Ethan Grebmeier
@@ -76,7 +76,7 @@ export default async function Page() {
         <FullscreenColumn className="relative flex w-full overflow-hidden">
           <Showcase />
         </FullscreenColumn>
-        <div className="flex items-center justify-between gap-2 lg:hidden">
+        <div className="flex items-center justify-between gap-2 px-4 md:px-8 lg:hidden">
           <Contact />
           <div>
             <Link href="https://github.com/ethan-grebmeier">
