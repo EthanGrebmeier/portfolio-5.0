@@ -3,6 +3,11 @@
 import { motion, easeInOut } from "motion/react";
 import { useRef } from "react";
 import type { CardType } from "./projects";
+import Link from "next/link";
+import { ItemWrapper } from "./item-wrapper";
+import { ArrowRightIcon, ChevronRightIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import ButtonLink from "../button-link";
 
 const FOLDER_ANIMATION_DURATION = 0.4; // Total time for folder to open (0.3s initial + 0.5s open)
 
@@ -76,14 +81,14 @@ const getInitialPosition = (index: number) => {
     spreadFactor;
 
   // Add smaller random variations on mobile
-  const variationRange = isMobile ? 10 : 20;
+  const variationRange = isMobile ? 40 : 80;
   const xVariation = (Math.random() - 0.5) * variationRange;
-  const yVariation = (Math.random() - 0.5) * variationRange;
+  const yVariation = (Math.random() - 0.5) * variationRange * 3;
 
   return {
     x: baseX + xVariation,
     y: baseY + yVariation,
-    rotate: (Math.random() - 0.5) * (isMobile ? 4 : 8), // Reduced rotation on mobile
+    rotate: (Math.random() - 0.5) * (isMobile ? 8 : 12), // Reduced rotation on mobile
   };
 };
 
@@ -124,7 +129,7 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           className="absolute bottom-0 h-[120px] origin-bottom rounded-xl border-2 border-blue-700 bg-blue-300"
           style={{ width: `min(90vw, max(33.333vw, 380px))` }}
         >
-          <div className="absolute left-2 top-0 flex -translate-y-full items-center gap-1 rounded-t-lg border-2 border-blue-700 bg-blue-200 px-1">
+          <div className="absolute left-2 top-px flex -translate-y-full items-center gap-1 rounded-t-lg border-2 border-b-0 border-blue-700 bg-blue-300 px-1">
             <p className="select-none text-lg font-bold text-blue-700">
               {card.title}
             </p>
@@ -139,61 +144,114 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           exit={{ opacity: 0, scale: 0.9 }}
           className="pointer-events-none absolute inset-0"
         >
-          <div className="relative h-full w-full">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="pointer-events-auto absolute bottom-4 right-4 flex gap-4"
+          >
+            <Button variant="outline" onClick={onClose}>
+              Close Folder
+            </Button>
+          </motion.div>
+
+          <motion.div
+            className="relative h-full w-full"
+            variants={{
+              visible: {
+                transition: {
+                  delayChildren: FOLDER_ANIMATION_DURATION,
+                  staggerChildren: 0.08,
+                },
+              },
+            }}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
             {contents.map((item, index) => {
               const initialPosition = getInitialPosition(index);
+              const itemVariants = {
+                hidden: {
+                  scale: 0.95,
+                  x: centerX,
+                  y: bottomY,
+                  rotate: 0,
+                  transition: {
+                    duration: 0.3,
+                    ease: easeInOut,
+                  },
+                },
+                visible: {
+                  scale: 0.95,
+                  x: initialPosition.x + centerX,
+                  y: window.innerHeight * 0.38 + initialPosition.y,
+                  rotate: initialPosition.rotate,
+                  transition: {
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 30,
+                    duration: 1,
+                  },
+                },
+              } as const;
+
               return (
                 <motion.div
                   key={item.id}
+                  variants={itemVariants}
                   drag
                   dragConstraints={containerRef}
                   dragElastic={0.6}
                   dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-                  initial={{
-                    scale: 0.95,
-                    x: centerX,
-                    y: bottomY,
-                    rotate: 0,
-                  }}
-                  animate={{
-                    scale: 0.95,
-                    x: initialPosition.x + centerX,
-                    y: window.innerHeight * 0.38 + initialPosition.y,
-                    rotate: initialPosition.rotate,
-                    transition: {
-                      type: "spring",
-                      stiffness: 150,
-                      damping: 30,
-                      delay: FOLDER_ANIMATION_DURATION + index * 0.08,
-                      duration: 1,
-                    },
-                  }}
-                  exit={{
-                    scale: 0.95,
-                    x: centerX,
-                    y: bottomY,
-                    rotate: 0,
-                    transition: {
-                      duration: 0.3,
-                      ease: "easeInOut",
-                    },
-                  }}
-                  whileHover={{ scale: 0.98 }}
+                  whileHover={{ scale: 0.98, transition: { duration: 0.1 } }}
                   whileDrag={{
                     scale: 1.02,
                     rotate: 0,
                     transition: { duration: 0.2 },
                   }}
-                  className="pointer-events-auto absolute cursor-grab rounded-lg border-2 border-blue-700 bg-white p-4 active:cursor-grabbing"
-                  style={{
-                    width: "min(400px, 80vw)",
-                  }}
+                  className="pointer-events-auto absolute cursor-grab active:cursor-grabbing"
                 >
                   {item.content}
                 </motion.div>
               );
             })}
-          </div>
+            <motion.div
+              variants={{
+                hidden: {
+                  scale: 0.95,
+                  x: centerX,
+                  y: bottomY,
+                  rotate: 0,
+                  transition: {
+                    duration: 0.3,
+                    ease: easeInOut,
+                  },
+                },
+                visible: {
+                  scale: 0.95,
+                  x: window.innerWidth / 2 - 100, // Approximate center
+                  y: window.innerHeight * 0.38,
+                  rotate: 0,
+                  transition: {
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 30,
+                    duration: 1,
+                  },
+                },
+              }}
+              className="pointer-events-auto absolute cursor-grab active:cursor-grabbing"
+            >
+              <ButtonLink
+                color="blue"
+                className="z-52 pointer-events-auto cursor-pointer items-center px-6 text-3xl"
+                href={card.link.href}
+              >
+                {card.link.label}
+              </ButtonLink>
+            </motion.div>
+          </motion.div>
         </motion.div>
         {/* Front of folder */}
         <motion.div

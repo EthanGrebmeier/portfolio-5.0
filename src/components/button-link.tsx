@@ -5,6 +5,8 @@ import { cn } from "~/helpers/cn";
 const colors = {
   green: "text-black bg-lime-400 hover:bg-white hover:text-black",
   blue: "bg-blue-700 text-white hover:bg-white hover:text-blue-700",
+  outline:
+    "border border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white",
 } as const;
 
 type ButtonLinkProps = {
