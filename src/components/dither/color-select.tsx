@@ -1,7 +1,7 @@
 import React from "react";
 import ColorPalette from "./color-palette";
 import type { Color } from "./types";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 import { useOnClickOutside } from "usehooks-ts";
 
 type ColorSelectorProps = {

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, MotionConfig } from "framer-motion";
+import { motion, MotionConfig } from "motion/react";
 import { useMediaQuery } from "usehooks-ts";
 
 const variants = {

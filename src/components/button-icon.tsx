@@ -1,7 +1,7 @@
-import { AnimatePresence, MotionConfig } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "motion/react";
 import React from "react";
 import { cn } from "~/helpers/cn";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 type ButtonIconProps = React.ComponentPropsWithoutRef<"button"> & {
   Icon: ({ size }: { size: number }) => React.ReactNode;

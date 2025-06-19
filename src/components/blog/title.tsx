@@ -2,7 +2,7 @@
 import React, { useMemo } from "react";
 import ButtonLink from "../button-link";
 import { LinkIcon } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 

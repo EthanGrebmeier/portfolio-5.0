@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useAtom } from "jotai";
 import React from "react";
 import { savedImagesAtom } from "./atom";

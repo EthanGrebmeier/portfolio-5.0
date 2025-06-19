@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import React, { useRef } from "react";
 import { savedImagesAtom } from "./atom";
-import { AnimatePresence, type Variants, motion } from "framer-motion";
+import { AnimatePresence, type Variants, motion } from "motion/react";
 import { Download, Trash2 } from "lucide-react";
 import { cn } from "~/helpers/cn";
 

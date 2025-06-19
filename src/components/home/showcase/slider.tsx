@@ -1,6 +1,6 @@
 "use client";
 import React, { forwardRef } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 type ShowcaseItemProps = {
   children: React.ReactNode;

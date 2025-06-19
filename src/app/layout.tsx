@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import { Provider } from "jotai";
 
 import "../styles/globals.css";
-import { MotionConfig } from "framer-motion";
+import { MotionConfig } from "motion/react";
 import QueryClientWrapper from "~/components/query-client";
 
 const bodyFont = Afacad({

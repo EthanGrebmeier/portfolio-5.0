@@ -2,7 +2,7 @@
 import React, { useLayoutEffect } from "react";
 
 import { Button } from "../ui/button";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useOnClickOutside } from "usehooks-ts";
 import { CheckCircleIcon, LoaderCircleIcon, XIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";

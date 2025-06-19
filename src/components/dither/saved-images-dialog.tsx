@@ -3,7 +3,7 @@ import React from "react";
 import SavedImages from "./saved-images";
 import { savedImagesAtom } from "./atom";
 import { useAtomValue } from "jotai";
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants } from "motion/react";
 import ResponsiveDialog from "../ui/responsive-dialog";
 import { ImageIcon } from "lucide-react";
 

@@ -6,7 +6,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { useAtom } from "jotai";
 import { paletteSwatchesAtom } from "./atom";
 import { getRgbaFromHex } from "~/lib/dither";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import useMeasure from "react-use-measure";
 
 type ColorPaletteProps = {

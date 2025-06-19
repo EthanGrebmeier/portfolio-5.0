@@ -10,7 +10,7 @@ const FullscreenColumn = ({ children, className }: FullscreenColumnProps) => {
   return (
     <div
       className={cn(
-        "h-[calc(70svh-var(--spacing))] max-h-[1440px] w-full lg:h-[calc(100svh-var(--spacing))]",
+        "h-[calc(50svh-var(--spacing))] max-h-[1440px] w-full lg:h-[calc(100svh-var(--spacing))]",
         className,
       )}
     >
