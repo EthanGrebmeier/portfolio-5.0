@@ -21,15 +21,15 @@ const PrintOutImage = ({
   return (
     <motion.div
       initial={{
-        translateY: "100%",
+        y: "100%",
         opacity: 0,
       }}
       animate={{
-        translateY: 0,
+        y: 0,
         opacity: 1,
       }}
       exit={{
-        translateY: "100%",
+        y: "100%",
         opacity: 0,
       }}
       transition={{

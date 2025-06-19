@@ -34,7 +34,7 @@ const Timer = ({ progress, className }: TimerProps) => {
           stroke="red"
           // className={className}
           style={{ pathLength: progress, fill: "none" }}
-          transition={{ duration: 1, type: "linear", bounce: 0 }}
+          transition={{ duration: 1, type: "tween", ease: "easeInOut" }}
         />
       </svg>
     </div>
