@@ -13,13 +13,9 @@ type CardProps = {
 };
 
 const Card = ({ card, index, numCards, style, isOpen, onOpen }: CardProps) => {
-  const baseTranslate = "translateX(-50%)";
   const centerY = "-50%";
-  // const stackOffset = index > 0 ? `${index * -20}px` : "0px";
-
-  // New: right and up offsets
-  const rightOffset = index * 12; // px
-  const upOffset = index * -8; // px
+  const rightOffset = index * 20; // px
+  const upOffset = index * -16; // px
 
   // Helper to build translateY and translateX
   const getTranslateY = (base: string, offset = 0) =>
