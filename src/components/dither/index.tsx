@@ -21,7 +21,9 @@ import {
 import { Button } from "../ui/button";
 
 const Dither = () => {
-  const [imageSrc, setImageSrc] = React.useState<string>();
+  const [imageSrc, setImageSrc] = React.useState<string>(
+    "/images/monalisa.jpg",
+  );
   const [ditherType, setDitherType] = React.useState<DitherType>("fsb");
   const [ditheredSource, setDitheredSource] = React.useState<string>();
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -97,9 +99,33 @@ const Dither = () => {
   }, [imageSrc, ditherType, ditherColorOne, ditherColorTwo]);
 
   return (
-    <div className="flex w-full flex-1 justify-center overflow-hidden lg:items-center">
-      <div className="flex flex-1 flex-col items-center gap-4 p-2 lg:flex-row">
+    <div className="flex w-full flex-1 flex-col justify-center lg:items-center">
+      <div className="flex w-full flex-1 flex-col items-center gap-4 p-2 lg:flex-row">
         <div className="flex flex-col gap-4">
+          <div className="flex max-w-[440px] flex-col gap-2">
+            <h1 className="font-serif text-2xl text-blue-700">Dither</h1>
+            <p className="text-base text-blue-700">
+              According to Wikipedia, Dither is an intentionally applied form of
+              noise used to randomize quantization error, preventing large-scale
+              patterns such as color banding in images. Dither is routinely used
+              in processing of both digital audio and video data, and is often
+              one of the last stages of mastering audio to a CD.{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Dither"
+                className="text-blue-700 underline"
+              >
+                Learn more
+              </a>
+            </p>
+            <p className="text-base text-blue-700">
+              This tool allows you to dither your own images with either
+              Floyd-Steinberg or Ordered Dithering.
+            </p>
+
+            <p className="text-base font-bold text-blue-700">
+              Select &quot;Dither Image&quot; to get started.
+            </p>
+          </div>
           {isDesktop ? (
             <div className="flex max-w-[240px] flex-col gap-12 py-2">
               <div className="flex flex-col gap-2">
@@ -122,10 +148,10 @@ const Dither = () => {
           ) : (
             <div className="flex gap-4">
               <Drawer repositionInputs={false}>
-                <div className="absolute bottom-8 right-6 z-20">
+                <div className="fixed bottom-8 right-6 z-20">
                   <DrawerTrigger asChild>
                     <Button className="flex items-center gap-2">
-                      {ditheredSource ? "Edit Image" : "Dither Image"}
+                      Dither Image
                       <ImageIcon size={35} />
                     </Button>
                   </DrawerTrigger>
@@ -141,7 +167,7 @@ const Dither = () => {
                   </div>
                 </DrawerContent>
               </Drawer>
-              <div className="absolute bottom-4 left-6 z-20">
+              <div className="fixed bottom-4 left-6 z-20">
                 <SavedImagesDialog />
               </div>
             </div>
