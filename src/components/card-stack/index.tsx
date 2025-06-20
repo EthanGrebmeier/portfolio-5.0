@@ -44,6 +44,10 @@ const CardStack = () => {
   return (
     <>
       <motion.div
+        style={{
+          x: -(cards.length - 1) * 10,
+          y: (cards.length - 1) * 18,
+        }}
         className="relative flex h-full flex-1 flex-col gap-4"
         initial="initial"
         whileHover="hover"
