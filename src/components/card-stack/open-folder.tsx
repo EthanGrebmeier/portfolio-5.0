@@ -142,19 +142,8 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="pointer-events-none absolute inset-0"
+          className="z-60 pointer-events-none absolute inset-0"
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="pointer-events-auto absolute bottom-4 right-4 flex gap-4"
-          >
-            <Button variant="outline" onClick={onClose}>
-              Close Folder
-            </Button>
-          </motion.div>
-
           <motion.div
             className="relative h-full w-full"
             variants={{
@@ -264,6 +253,16 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           style={{ width: `min(90vw, max(33.333vw, 380px))` }}
         >
           <div className="relative h-full w-full p-3"></div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="z-60 pointer-events-auto absolute bottom-4 right-4 flex gap-4"
+        >
+          <Button variant="outline" onClick={onClose}>
+            Close Folder
+          </Button>
         </motion.div>
       </div>
     </>

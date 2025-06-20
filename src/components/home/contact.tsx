@@ -57,7 +57,7 @@ const Contact = () => {
         {isOpen && (
           <motion.div
             ref={contactRef}
-            className="absolute bottom-0 left-0 right-0"
+            className="absolute bottom-0 left-0 right-0 z-[100]"
           >
             <motion.div
               initial={{ width: 0, height: 0, opacity: 0, filter: "blur(4px)" }}
