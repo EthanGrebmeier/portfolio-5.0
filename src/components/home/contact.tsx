@@ -11,8 +11,10 @@ import { cn } from "~/helpers/cn";
 const Contact = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const contactRef = React.useRef<HTMLDivElement>(null);
+  const [name, setName] = React.useState("");
   const [content, setContent] = React.useState("");
   const areaRef = React.useRef<HTMLTextAreaElement>(null);
+  const nameRef = React.useRef<HTMLInputElement>(null);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -27,6 +29,7 @@ const Contact = () => {
       await fetch("/contact", {
         method: "POST",
         body: JSON.stringify({
+          name,
           body: content,
         }),
       });
@@ -41,7 +44,7 @@ const Contact = () => {
   useLayoutEffect(() => {
     if (isOpen) {
       contactRef.current?.scrollIntoView({ behavior: "smooth" });
-      areaRef.current?.focus();
+      nameRef.current?.focus();
     }
   }, [isOpen]);
 
@@ -63,7 +66,7 @@ const Contact = () => {
               initial={{ width: 0, height: 0, opacity: 0, filter: "blur(4px)" }}
               animate={{
                 width: 320,
-                height: 240,
+                height: 400,
                 opacity: 1,
                 filter: "blur(0px)",
               }}
@@ -99,14 +102,38 @@ const Contact = () => {
                       All submissions go directly to my inbox
                     </p>
                   </div>
-                  <textarea
-                    className="h-full flex-1 resize-none rounded-lg border p-2 font-serif text-black"
-                    autoFocus
-                    required
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    ref={areaRef}
-                  />
+                  <div className="flex flex-col gap-1">
+                    <label
+                      htmlFor="name"
+                      className="font-sans text-sm text-black"
+                    >
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      className="w-full resize-none rounded-lg border p-2 font-serif text-black"
+                      ref={nameRef}
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col gap-1">
+                    <label
+                      htmlFor="message"
+                      className="font-sans text-sm text-black"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      className="h-full flex-1 resize-none rounded-lg border p-2 font-serif text-black"
+                      required
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
+                      ref={areaRef}
+                    />
+                  </div>
                   <div className="flex w-full gap-12">
                     <Button
                       disabled={

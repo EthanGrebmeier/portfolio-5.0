@@ -22,13 +22,15 @@ export async function POST(req: Request) {
 
   const parsedBody = z
     .object({
+      name: z.string(),
       body: z.string(),
     })
     .safeParse(requestBody);
 
+  const name = parsedBody.success ? parsedBody.data.name : null;
   const body = parsedBody.success ? parsedBody.data.body : null;
 
-  if (!body) {
+  if (!name || !body) {
     return new Response("Missing Message Body", { status: 400 });
   }
 
@@ -45,6 +47,7 @@ export async function POST(req: Request) {
   const html = `
       <body>
           <h1> Email From Ethangrebmeier.com </h1>
+          <p> From: ${name} </p>
           <p> ${body} </p>
       </body>
   `;
