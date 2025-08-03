@@ -60,7 +60,7 @@ const Card = ({ card, index, numCards, style, isOpen, onOpen }: CardProps) => {
           damping: 30,
           duration: 0.3,
         }}
-        className="perspective-dramatic absolute aspect-[4/3] h-auto w-4/5 max-w-[450px] touch-none"
+        className="perspective-dramatic absolute aspect-[4/3] h-auto w-4/5 max-w-[450px] cursor-pointer touch-none"
       >
         {/* Back of folder */}
         <div className="absolute inset-0 translate-x-[4px] translate-y-[-4px] rounded-xl border-2 border-blue-700 bg-blue-300">

@@ -11,11 +11,11 @@ export default async function Page() {
   return (
     <div
       className={cn(
-        "mx-auto flex w-full max-w-[640px] flex-col items-center bg-background lg:max-w-screen-2xl",
+        "mx-auto flex w-full max-w-[640px] flex-col items-center bg-background lg:max-w-screen-xl",
       )}
     >
       <div
-        className="flex w-full flex-col justify-between gap-12 py-6 lg:flex-row lg:px-8"
+        className="flex w-full flex-col justify-between gap-8 py-6 lg:flex-row lg:gap-24 lg:px-8"
         style={
           {
             "--spacing": "48px",

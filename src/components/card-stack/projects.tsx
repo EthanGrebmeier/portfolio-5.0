@@ -131,6 +131,19 @@ export const cards: CardType[] = [
           </div>
         ),
       },
+      {
+        id: "fill-6",
+        content: (
+          <div className="relative aspect-[2900/2140] w-[340px] overflow-hidden rounded-md">
+            <Image
+              src="/images/fillaneed/fillaneed-wishlist-view.png"
+              alt="A fillaneed wishlist view"
+              fill
+              className="pointer-events-none select-none object-cover"
+            />
+          </div>
+        ),
+      },
     ],
   },
   {
