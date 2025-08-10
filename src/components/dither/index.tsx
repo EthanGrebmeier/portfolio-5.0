@@ -122,7 +122,7 @@ const Dither = () => {
               Floyd-Steinberg or Ordered Dithering.
             </p>
 
-            <p className="text-base font-bold text-blue-700">
+            <p className="text-base font-bold text-blue-700 md:hidden">
               Select &quot;Dither Image&quot; to get started.
             </p>
           </div>
