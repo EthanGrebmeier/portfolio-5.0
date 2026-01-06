@@ -1,10 +1,11 @@
 "use client";
 import { motion, AnimatePresence } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Card from "./card";
 import { type LucideProps } from "lucide-react";
 import { cards } from "./projects";
 import { OpenFolder } from "./open-folder";
+import { useIsMobile } from "~/hooks/useMediaQuery";
 
 export type CardContentItem = {
   id: string;
@@ -18,21 +19,16 @@ export type CardType = {
   Icon: (props: LucideProps) => React.ReactNode;
   style?: React.CSSProperties;
   contents?: CardContentItem[];
+  link: {
+    href: string;
+    label: string;
+  };
 };
 
 const CardStack = () => {
-  const [order, setOrder] = useState<number[]>(() =>
-    cards.map((card) => card.id),
-  );
+  const isMobile = useIsMobile();
+
   const [openCardId, setOpenCardId] = useState<number | null>(null);
-
-  const handleSelect = (selectedId: number) => {
-    setOrder((currentIds) => [
-      selectedId,
-      ...currentIds.filter((id) => id !== selectedId),
-    ]);
-  };
-
   const handleOpenCard = (id: number) => {
     setOpenCardId(id);
   };
@@ -52,24 +48,14 @@ const CardStack = () => {
         initial="initial"
         whileHover="hover"
       >
-        {order.map((id, index) => {
-          const card = cards.find((c) => c.id === id);
-          if (!card) return null;
-
-          return (
-            <Card
-              numCards={order.length}
-              key={id}
-              card={card}
-              index={index}
-              isOpen={openCardId === id}
-              onOpen={() => handleOpenCard(id)}
-            />
-          );
+        {cards.map((card, index) => {
+          return <Card key={card.id} card={card} index={index} numCards={cards.length} isOpen={openCardId === card.id} onOpen={() => handleOpenCard(card.id)} />;
         })}
       </motion.div>
+      {/* Only show full-screen modal on mobile */}
       <AnimatePresence>
-        {openCardId !== null &&
+        {isMobile &&
+          openCardId !== null &&
           (() => {
             const openCard = cards.find((card) => card.id === openCardId);
             if (!openCard) return null;
