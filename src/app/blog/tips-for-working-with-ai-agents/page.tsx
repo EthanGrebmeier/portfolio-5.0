@@ -526,6 +526,9 @@ If you notice while working on a feature that the PRD is complete, let me know`}
                 thinking that enable us to provide agents with the best context{" "}
               </li>
               <li>
+                A <a href="https://www.youtube.com/watch?v=L_p5GxGSB_I">breakdown</a> by Lee Robinson on the different ways to provide context to an agent
+              </li>
+              <li>
                 Fantastic <a href="https://www.youtube.com/watch?v=-uW5-TaVXu4">video</a> on context from Matt Pocock. Check out his channel for a bunch of great info on optimizing your workflow with AI agents.
               </li>
             </ul>
