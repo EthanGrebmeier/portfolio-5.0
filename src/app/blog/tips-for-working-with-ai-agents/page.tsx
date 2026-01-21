@@ -177,7 +177,7 @@ const BlogPage = ({ searchParams }: BlogPageProps) => {
               As a result of this approach, we are able to optimize steps 1 and
               2 of the agent workflow. Instead of searching your codebase for
               context related to your task, ballooning context quickly, an agent
-              is able to reference a concise document to get rolling.
+              is able to reference a concise document and get to work.
             </p>
             <BlogCallout>
               <p>
