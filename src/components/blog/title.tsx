@@ -58,7 +58,7 @@ const BlogTitle = ({ title, link }: BlogTitleProps) => {
         layout
         className="flex w-full items-center justify-between gap-2"
       >
-        <h1 className="text-3xl tracking-tight sm:text-4xl">{title}</h1>
+        <h1 className="text-3xl tracking-tight sm:text-4xl text-blue-700 font-serif">{title}</h1>
         <ButtonLink
           color="blue"
           className="flex items-center gap-2 border border-transparent hover:border-blue-700"

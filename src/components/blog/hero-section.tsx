@@ -12,7 +12,7 @@ type BlogHeroProps = {
 
 export const BlogHero = ({ tagline, caption, content, media, className }: BlogHeroProps) => {
   return (
-    <section className={cn("border-b border-blue-700 pb-12", className)}>
+    <section className={className}>
       {tagline && <p className="mb-6 mt-4 italic text-blue-700">{tagline}</p>}
       <div className="mb-8 flex flex-col gap-2">
         <BlogMedia media={media} />

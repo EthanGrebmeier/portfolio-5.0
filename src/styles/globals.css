@@ -126,7 +126,7 @@
     }
 
     aside {
-      max-width: 44rem;
+      max-width: none;
       width: 100%;
       border-radius: 0.75rem;
       border: 1px solid #93c5fd;
@@ -143,6 +143,16 @@
 
     aside p + p {
       margin-top: 0.6rem;
+    }
+
+    a { 
+      color: #1d4ed8;
+      text-decoration: underline;
+      font-weight: 600;
+      transition: color 0.2s ease-in-out;
+      &:hover {
+        color: #1e3a8a;
+      }
     }
   }
 }

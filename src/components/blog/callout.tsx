@@ -7,7 +7,7 @@ type BlogCalloutProps = {
 };
 
 export const BlogCallout = ({ children, className }: BlogCalloutProps) => (
-  <aside className={cn("rounded-lg border border-blue-700 bg-blue-50 p-4 text-sm text-blue-900", className)}>
+  <aside className={cn("rounded-lg border border-blue-700 bg-blue-50 p-4 text-sm text-blue-900 w-full", className)}>
     {children}
   </aside>
 );

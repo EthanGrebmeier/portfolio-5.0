@@ -1,4 +1,4 @@
-import { Afacad } from "next/font/google";
+import { Afacad, Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { Provider } from "jotai";
 
@@ -6,7 +6,7 @@ import "../styles/globals.css";
 import { MotionConfig } from "motion/react";
 import QueryClientWrapper from "~/components/query-client";
 
-const bodyFont = Afacad({
+const bodyFont = Plus_Jakarta_Sans({
   weight: ["400", "600"],
   subsets: ["latin"],
   display: "swap",
