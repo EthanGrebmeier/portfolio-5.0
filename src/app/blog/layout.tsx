@@ -8,7 +8,7 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mx-auto flex max-w-[840px] flex-col gap-4 px-4 py-6">
+    <div className="mx-auto flex max-w-screen-sm flex-col gap-4 px-4 py-6">
       <Header />
       {children}
     </div>
