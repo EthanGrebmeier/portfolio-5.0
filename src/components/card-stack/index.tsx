@@ -39,19 +39,28 @@ const CardStack = () => {
 
   return (
     <>
-      <motion.div
-        style={{
-          x: -(cards.length - 1) * 10,
-          y: (cards.length - 1) * 18,
-        }}
-        className="relative flex h-full flex-1 flex-col gap-4"
-        initial="initial"
-        whileHover="hover"
+      <div
+        style={
+          {
+            "--stack-count": cards.length,
+          } as React.CSSProperties
+        }
+        className="relative h-[calc(22rem+((var(--stack-count)-1)*18px)+3rem)] w-full"
       >
-        {cards.map((card, index) => {
-          return <Card key={card.id} card={card} index={index} numCards={cards.length} isOpen={openCardId === card.id} onOpen={() => handleOpenCard(card.id)} />;
-        })}
-      </motion.div>
+        <motion.div
+          style={{
+            x: -(cards.length - 1) * 10,
+            y: (cards.length - 1) * 18,
+          }}
+          className="relative flex h-full flex-1 flex-col gap-4"
+          initial="initial"
+          whileHover="hover"
+        >
+          {cards.map((card, index) => {
+            return <Card key={card.id} card={card} index={index} numCards={cards.length} isOpen={openCardId === card.id} onOpen={() => handleOpenCard(card.id)} />;
+          })}
+        </motion.div>
+      </div>
       {/* Only show full-screen modal on mobile */}
       <AnimatePresence>
         {isMobile &&

@@ -84,7 +84,7 @@ const Card = ({ card, index, numCards, style, isOpen: _isOpen, onOpen }: CardPro
         damping: 30,
         duration: 0.3,
       }}
-      className="perspective-dramatic absolute aspect-[4/3] h-auto w-4/5 max-w-[450px] cursor-pointer touch-none overflow-visible"
+      className="perspective-dramatic absolute aspect-[4/3] h-auto w-full max-w-[420px] cursor-pointer touch-none overflow-visible"
     >
         {/* Back of folder */}
         <div className="absolute inset-0 translate-x-[4px] translate-y-[-4px] rounded-xl border-2 border-blue-700 bg-blue-300">
@@ -151,16 +151,7 @@ const Card = ({ card, index, numCards, style, isOpen: _isOpen, onOpen }: CardPro
         <div className="relative z-[2] h-full w-full rounded-xl border-2 border-blue-700 bg-blue-200">
           <div className="relative flex h-full w-full p-4"></div>
         </div>
-        {index === 0 && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="pointer-events-none absolute left-1/2 top-full -translate-x-1/2 translate-y-4 text-center text-lg font-medium text-gray-400"
-          >
-            {isMobile ? "Tap a folder to open" : "Hover to preview, click to visit"}
-          </motion.p>
-        )}
+
     </motion.div>
   );
 
