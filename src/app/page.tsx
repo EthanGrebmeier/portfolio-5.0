@@ -2,10 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CardStack from "~/components/card-stack";
 import CardTooltip from "~/components/card-stack/card-tooltip";
-import Arrow from "~/components/home/arrow";
 import Contact from "~/components/home/contact";
-import FullscreenColumn from "~/components/home/fullscreen-column";
-import Showcase from "~/components/home/showcase";
 import { cn } from "~/helpers/cn";
 
 export default async function Page() {
