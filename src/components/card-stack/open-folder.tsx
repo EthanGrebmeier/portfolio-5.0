@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, easeInOut } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { CardType } from "./projects";
 import { ArrowRightIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
@@ -64,6 +64,19 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contents = card.contents ?? [];
 
+  useEffect(() => {
+    const bodyOverflow = document.body.style.overflow;
+    const htmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = bodyOverflow;
+      document.documentElement.style.overflow = htmlOverflow;
+    };
+  }, []);
+
   // Calculate folder position for exit animation
   const cardWidth = Math.min(360, window.innerWidth - 72);
 
@@ -77,10 +90,10 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-[2px]"
+        className="fixed inset-x-0 top-0 z-50 h-[100dvh] bg-slate-950/40 backdrop-blur-[2px]"
         onClick={onClose}
       />
-      <div className="perspective-dramatic pointer-events-none fixed inset-0 z-[51] flex items-center justify-center">
+      <div className="perspective-dramatic pointer-events-none fixed inset-x-0 top-0 z-[51] flex h-[100dvh] items-center justify-center">
         {/* Back of folder */}
         <motion.div
           variants={backVariants}
