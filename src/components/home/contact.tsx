@@ -16,13 +16,10 @@ const Contact = () => {
   const areaRef = React.useRef<HTMLTextAreaElement>(null);
   const nameRef = React.useRef<HTMLInputElement>(null);
 
-  const handleClose = () => {
+  const closeForm = () => {
     setIsOpen(false);
     setContent("");
-    mutation.reset();
   };
-
-  useOnClickOutside(contactRef, handleClose);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -36,10 +33,17 @@ const Contact = () => {
     },
     onSuccess: () => {
       setTimeout(() => {
-        handleClose();
+        closeForm();
       }, 1300);
     },
   });
+
+  const handleClose = () => {
+    closeForm();
+    mutation.reset();
+  };
+
+  useOnClickOutside(contactRef as React.RefObject<HTMLDivElement>, handleClose);
 
   useLayoutEffect(() => {
     if (isOpen) {

@@ -3,12 +3,8 @@ export const metadata = {
   description: "Create two-color dithered images in your browser.",
 };
 
-import dynamic from "next/dynamic";
 import Header from "~/components/header";
-
-const Dither = dynamic(() => import("~/components/dither"), {
-  ssr: false,
-});
+import Dither from "~/components/dither";
 
 export default async function Page() {
   return (

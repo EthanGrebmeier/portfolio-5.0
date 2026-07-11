@@ -12,7 +12,7 @@ type BlogTitleProps = {
     href: string;
     text: string;
   };
-  date: string;
+  date?: string;
 };
 
 const BlogTitle = ({ title, link, date }: BlogTitleProps) => {
@@ -60,15 +60,17 @@ const BlogTitle = ({ title, link, date }: BlogTitleProps) => {
         className="flex w-full items-center justify-between gap-2"
       >
         <div>
-        <h1 className="text-3xl tracking-tight  text-blue-700 font-serif">{title}</h1>
-        <p className="text-sm text-gray-400">{date}</p>
+          <h1 className="font-serif text-3xl tracking-tight text-blue-700">
+            {title}
+          </h1>
+          {date && <p className="text-sm text-gray-400">{date}</p>}
         </div>
         {link && (
           <ButtonLink
-          color="blue"
-          className="flex items-center gap-2 border border-transparent hover:border-blue-700"
-          href={link.href}
-        >
+            color="blue"
+            className="flex items-center gap-2 border border-transparent hover:border-blue-700"
+            href={link.href}
+          >
             {link.text}
             <LinkIcon size={18} />
           </ButtonLink>

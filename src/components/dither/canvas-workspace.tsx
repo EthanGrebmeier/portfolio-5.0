@@ -68,7 +68,7 @@ const CanvasWorkspace = ({
   const [imageSize, setImageSize] = useState<Size>();
   const [isDesktop, setIsDesktop] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const pendingZoomAnchorRef = useRef<ZoomAnchor>();
+  const pendingZoomAnchorRef = useRef<ZoomAnchor | undefined>(undefined);
   const displayedUrl = showOriginal ? sourceUrl : (previewUrl ?? sourceUrl);
 
   const horizontalPadding = isDesktop ? 80 : 48;
@@ -109,11 +109,6 @@ const CanvasWorkspace = ({
     mediaQuery.addEventListener("change", updateLayout);
     return () => mediaQuery.removeEventListener("change", updateLayout);
   }, []);
-
-  useEffect(() => {
-    pendingZoomAnchorRef.current = { x: 0.5, y: 0.5 };
-    setZoom(1);
-  }, [sourceUrl]);
 
   useLayoutEffect(() => {
     const viewport = viewportRef.current;
@@ -202,7 +197,7 @@ const CanvasWorkspace = ({
     >
       <div
         ref={viewportRef}
-        className="size-full overscroll-contain overflow-auto"
+        className="size-full overflow-auto overscroll-contain"
       >
         <div
           className="flex items-center justify-center p-6 lg:p-10"
@@ -260,9 +255,7 @@ const CanvasWorkspace = ({
         >
           <label htmlFor="dither-image-upload">
             <FolderOpen />
-            <span className="hidden md:block">
-            Open image
-            </span>
+            <span className="hidden md:block">Open image</span>
           </label>
         </Button>
 

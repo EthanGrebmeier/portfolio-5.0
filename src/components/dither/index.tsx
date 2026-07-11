@@ -25,9 +25,9 @@ const Dither = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string>();
 
-  const bitmapRef = useRef<ImageBitmap>();
-  const sourceUrlRef = useRef<string>();
-  const previewUrlRef = useRef<string>();
+  const bitmapRef = useRef<ImageBitmap | undefined>(undefined);
+  const sourceUrlRef = useRef<string | undefined>(undefined);
+  const previewUrlRef = useRef<string | undefined>(undefined);
   const loadRequestRef = useRef(0);
 
   const installImage = useCallback(
@@ -194,6 +194,7 @@ const Dither = () => {
       <div className="relative flex flex-col lg:min-h-0 lg:flex-1 lg:flex-row lg:overflow-hidden">
         <div className="flex h-[60svh] min-h-80 shrink-0 lg:h-auto lg:min-h-0 lg:min-w-0 lg:flex-1">
           <CanvasWorkspace
+            key={source?.version ?? "empty"}
             sourceUrl={source?.url}
             previewUrl={previewUrl}
             fileName={source?.name ?? "image"}

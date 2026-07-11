@@ -42,7 +42,7 @@ const getInitialPosition = (index: number) => {
 type DraggableItemProps = {
   children: React.ReactNode;
   index: number;
-  containerRef: RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement | null>;
   bottomY: number;
 };
 

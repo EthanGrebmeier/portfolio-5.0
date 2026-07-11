@@ -10,7 +10,7 @@ import { RotateCcw } from "lucide-react";
 import { Button } from "../ui/button";
 import ColorControls from "./color-controls";
 import RangeControl from "./range-control";
-import type { BayerSize, DitherSettings, DitherType } from "./types";
+import type { DitherSettings, DitherType } from "./types";
 
 type DitherControlsProps = {
   idPrefix: string;
@@ -130,7 +130,7 @@ const DitherControls = ({
                   <button
                     key={size}
                     type="button"
-                    onClick={() => update("matrixSize", size as BayerSize)}
+                    onClick={() => update("matrixSize", size)}
                     className={`rounded-lg px-2 py-1.5 text-sm transition ${
                       settings.matrixSize === size
                         ? "bg-white text-blue-700 shadow-sm"

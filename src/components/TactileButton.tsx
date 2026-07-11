@@ -49,7 +49,7 @@ const TactileButton = ({
         )}
       >
         {children}
-        {icon ? icon : null}
+        {icon ?? null}
       </motion.div>
     </button>
   );
