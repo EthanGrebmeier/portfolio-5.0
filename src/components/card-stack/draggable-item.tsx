@@ -22,8 +22,7 @@ const getInitialPosition = (index: number) => {
 
   // Calculate base position with reduced spread on mobile
   const spreadFactor = isMobile ? 0.6 : 1;
-  const baseX =
-    ((quadrant % 2) * quadrantWidth - screenWidth / 4) * spreadFactor;
+  const baseX = ((quadrant % 2) - 0.5) * quadrantWidth * spreadFactor;
   const baseY =
     (Math.floor(quadrant / 2) * quadrantHeight - screenHeight / 3) *
     spreadFactor;
@@ -44,7 +43,6 @@ type DraggableItemProps = {
   children: React.ReactNode;
   index: number;
   containerRef: RefObject<HTMLDivElement>;
-  centerX: number;
   bottomY: number;
 };
 
@@ -52,15 +50,14 @@ export const DraggableItem = ({
   children,
   index,
   containerRef,
-  centerX,
   bottomY,
 }: DraggableItemProps) => {
   const [scope, animate] = useAnimate();
   const initialPosition = getInitialPosition(index);
   const itemVariants = {
     hidden: {
-      scale: 0.95,
-      x: centerX,
+      scale: 1.1,
+      x: 0,
       y: bottomY,
       rotate: 0,
       transition: {
@@ -69,8 +66,8 @@ export const DraggableItem = ({
       },
     },
     visible: {
-      scale: 0.95,
-      x: initialPosition.x + centerX,
+      scale: 1.3,
+      x: initialPosition.x,
       y: window.innerHeight * 0.38 + initialPosition.y,
       rotate: initialPosition.rotate,
       transition: {
@@ -89,7 +86,7 @@ export const DraggableItem = ({
         animate(
           scope.current,
           {
-            x: centerX,
+            x: 0,
             y: bottomY,
           },
           {
@@ -103,15 +100,15 @@ export const DraggableItem = ({
       dragConstraints={containerRef}
       dragElastic={0.6}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-      whileHover={{ scale: 0.98, transition: { duration: 0.1 } }}
+      whileHover={{ scale: 1.34, transition: { duration: 0.1 } }}
       whileDrag={{
-        scale: 1.02,
+        scale: 1.38,
         rotate: 0,
         transition: { duration: 0.2 },
       }}
-      className="pointer-events-auto absolute cursor-grab active:cursor-grabbing"
+      className="pointer-events-auto absolute left-1/2 cursor-grab active:cursor-grabbing"
     >
-      {children}
+      <div className="-translate-x-1/2">{children}</div>
     </motion.div>
   );
 };

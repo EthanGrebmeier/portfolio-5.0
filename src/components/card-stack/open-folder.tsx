@@ -3,9 +3,7 @@
 import { motion, easeInOut } from "motion/react";
 import { useRef } from "react";
 import type { CardType } from "./projects";
-import Link from "next/link";
-import { ItemWrapper } from "./item-wrapper";
-import { ArrowRightIcon, ChevronRightIcon } from "lucide-react";
+import { ArrowRightIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import ButtonLink from "../button-link";
 import { DraggableItem } from "./draggable-item";
@@ -67,20 +65,19 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
   const contents = card.contents ?? [];
 
   // Calculate folder position for exit animation
-  const isMobile = window.innerWidth < 768;
-  const cardWidth = Math.min(400, window.innerWidth * (isMobile ? 0.9 : 0.8));
+  const cardWidth = Math.min(360, window.innerWidth - 72);
 
-  // Calculate the exact center position at the bottom of the screen
-  const centerX = window.innerWidth / 2 - cardWidth / 2;
   const bottomY = window.innerHeight + 250; // Align with folder bottom
 
   return (
     <>
-      <motion.div
+      <motion.button
+        type="button"
+        aria-label="Close folder"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-black/50"
+        className="fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-[2px]"
         onClick={onClose}
       />
       <div className="perspective-dramatic pointer-events-none fixed inset-0 z-[51] flex items-center justify-center">
@@ -91,14 +88,13 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           animate={["closed", "open"]}
           whileHover="initial"
           exit="exit"
-          className="absolute bottom-0 h-[120px] origin-bottom rounded-xl border-2 border-blue-700 bg-blue-300"
-          style={{ width: `min(90vw, max(33.333vw, 380px))` }}
+          className="absolute bottom-0 h-[120px] origin-bottom rounded-xl border border-blue-500 bg-blue-400"
+          style={{ width: cardWidth }}
         >
-          <div className="absolute left-2 top-px flex -translate-y-full items-center gap-1 rounded-t-lg border-2 border-b-0 border-blue-700 bg-blue-300 px-1">
-            <p className="select-none text-lg font-bold text-blue-700">
+          <div className="absolute left-2 top-0 flex -translate-y-full items-center rounded-t-lg border border-b-2 border-blue-400 bg-blue-300 px-2">
+            <p className="select-none text-lg font-medium text-blue-700">
               {card.title}
             </p>
-            <card.Icon size={16} className="text-blue-700" />
           </div>
         </motion.div>
         {/* Draggable items */}
@@ -129,7 +125,6 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
                   key={item.id}
                   index={index}
                   containerRef={containerRef}
-                  centerX={centerX}
                   bottomY={bottomY}
                 >
                   {item.content}
@@ -140,7 +135,6 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
               variants={{
                 hidden: {
                   scale: 0.95,
-                  x: centerX,
                   y: bottomY,
                   rotate: 0,
                   transition: {
@@ -149,9 +143,8 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
                   },
                 },
                 visible: {
-                  scale: 0.95,
-                  x: window.innerWidth / 2 - 100, // Approximate center
-                  y: window.innerHeight * 0.38,
+                  scale: 1,
+                  y: window.innerHeight - 190,
                   rotate: 0,
                   transition: {
                     type: "spring",
@@ -161,14 +154,15 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
                   },
                 },
               }}
-              className="pointer-events-auto absolute"
+              className="pointer-events-none absolute inset-x-0 top-0 flex justify-center"
             >
               <ButtonLink
                 color="blue"
-                className="z-52 pointer-events-auto cursor-pointer items-center px-6 text-3xl"
+                className="z-52 pointer-events-auto h-11 cursor-pointer gap-2 border border-blue-600 px-5 text-base font-medium no-underline shadow-lg shadow-blue-950/20"
                 href={card.link.href}
               >
                 {card.link.label}
+                <ArrowRightIcon className="size-4" />
               </ButtonLink>
             </motion.div>
           </motion.div>
@@ -180,8 +174,8 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           animate={["closed", "open"]}
           whileHover="initial"
           exit="exit"
-          className="absolute bottom-0 h-[120px] origin-bottom rounded-xl border-2 border-blue-700 bg-blue-200 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]"
-          style={{ width: `min(90vw, max(33.333vw, 380px))` }}
+          className="absolute bottom-0 h-[120px] origin-bottom rounded-xl border border-blue-400 bg-blue-300 shadow-sm"
+          style={{ width: cardWidth }}
         >
           <div className="relative h-full w-full p-3"></div>
         </motion.div>
@@ -189,10 +183,16 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="z-60 pointer-events-auto absolute bottom-4 right-4 flex gap-4"
+          className="z-60 pointer-events-auto absolute right-4 top-4"
         >
-          <Button variant="outline" onClick={onClose}>
-            Close Folder
+          <Button
+            variant="outline"
+            size="icon"
+            className="border-white/70 bg-white/95 text-blue-700 shadow-md backdrop-blur hover:bg-white"
+            onClick={onClose}
+            aria-label="Close folder"
+          >
+            <XIcon />
           </Button>
         </motion.div>
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import { useState } from "react";
 import Card from "./card";
 import { type LucideProps } from "lucide-react";
@@ -47,19 +47,20 @@ const CardStack = () => {
         }
         className="relative h-[calc(22rem+((var(--stack-count)-1)*18px)+3rem)] w-full"
       >
-        <motion.div
-          style={{
-            x: -(cards.length - 1) * 10,
-            y: (cards.length - 1) * 18,
-          }}
-          className="relative flex h-full flex-1 flex-col gap-4"
-          initial="initial"
-          whileHover="hover"
-        >
+        <div className="relative flex h-full flex-1 flex-col gap-4">
           {cards.map((card, index) => {
-            return <Card key={card.id} card={card} index={index} numCards={cards.length} isOpen={openCardId === card.id} onOpen={() => handleOpenCard(card.id)} />;
+            return (
+              <Card
+                key={card.id}
+                card={card}
+                index={index}
+                numCards={cards.length}
+                isOpen={openCardId === card.id}
+                onOpen={() => handleOpenCard(card.id)}
+              />
+            );
           })}
-        </motion.div>
+        </div>
       </div>
       {/* Only show full-screen modal on mobile */}
       <AnimatePresence>

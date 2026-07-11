@@ -34,25 +34,26 @@ const getArcPosition = (itemIndex: number, totalItems: number) => {
   };
 };
 
-const Card = ({ card, index, numCards, style, isOpen: _isOpen, onOpen }: CardProps) => {
+const Card = ({
+  card,
+  index,
+  numCards,
+  style,
+  isOpen: _isOpen,
+  onOpen,
+}: CardProps) => {
   const isMobile = useIsMobile();
   const isDesktop = !isMobile;
   const [isHovered, setIsHovered] = useState(false);
-  const centerY = "-50%";
-  const rightOffset = index * 20; // px
-  const upOffset = index * -16; // px
-
-  // Helper to build translateY and translateX
-  const getTranslateY = (base: string, offset = 0) =>
-    `translateY(calc(${base} + ${index > 0 ? `${index * -20 + offset + upOffset}px` : `${offset + upOffset}px`}))`;
-  const getTranslateX = () => `translateX(calc(-50% + ${rightOffset}px))`;
-
-  // Initial, Animate, and Hover transforms
-  const initialTransform = `${getTranslateY(centerY)} ${getTranslateX()}`;
-  const hoverTransform =
-    index > 0
-      ? getTranslateY(centerY, -12) + ` ${getTranslateX()} `
-      : initialTransform;
+  const distanceFromCenter = index - (numCards - 1) / 2;
+  const horizontalStep = isMobile ? 12 : 20;
+  const verticalStep = isMobile ? 24 : 36;
+  const xOffset = distanceFromCenter * horizontalStep;
+  const yOffset = distanceFromCenter * -verticalStep;
+  const getTransform = (lift = 0) =>
+    `translate(calc(-50% + ${xOffset}px), calc(-50% + ${yOffset + lift}px))`;
+  const initialTransform = getTransform();
+  const hoverTransform = getTransform(-12);
 
   const contents = card.contents ?? [];
 
@@ -65,13 +66,10 @@ const Card = ({ card, index, numCards, style, isOpen: _isOpen, onOpen }: CardPro
       onMouseLeave={() => isDesktop && setIsHovered(false)}
       style={style}
       initial={{
-        left: "50%",
-        top: "50%",
         transform: initialTransform,
         zIndex: numCards - index,
       }}
       animate={{
-        left: "50%",
         transform: isHovered ? hoverTransform : initialTransform,
         zIndex: numCards - index,
       }}
@@ -84,7 +82,7 @@ const Card = ({ card, index, numCards, style, isOpen: _isOpen, onOpen }: CardPro
         damping: 30,
         duration: 0.3,
       }}
-      className="absolute aspect-[4/3] h-auto w-full max-w-[420px] cursor-pointer touch-none overflow-visible"
+      className="absolute left-1/2 top-1/2 aspect-[4/3] h-auto w-[calc(100%-2.5rem)] max-w-[360px] cursor-pointer touch-none overflow-visible md:w-full md:max-w-[420px]"
     >
         {/* Back of folder — scale only the faces so pop-out images stay crisp */}
         <div className="absolute inset-0 translate-x-[3px] translate-y-[-3px]">
@@ -159,7 +157,6 @@ const Card = ({ card, index, numCards, style, isOpen: _isOpen, onOpen }: CardPro
           animate={{ scale: folderScale }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          <div className="relative flex h-full w-full p-4"></div>
         </motion.div>
 
     </motion.div>

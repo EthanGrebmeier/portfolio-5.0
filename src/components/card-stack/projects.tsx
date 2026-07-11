@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-
 export type CardContentItem = {
   id: string;
   content: React.ReactNode;
@@ -90,7 +89,7 @@ export const cards: CardType[] = [
       {
         id: "fill-6",
         content: (
-          <div className="relative aspect-[2900/2140] w-[170px] overflow-hidden rounded-md">
+          <div className="relative aspect-[2900/2140] w-[280px] overflow-hidden rounded-md md:w-[170px]">
             <Image
               src="/images/fillaneed/fillaneed-wishlist-view.png"
               alt="A fillaneed wishlist view"
@@ -122,7 +121,7 @@ export const cards: CardType[] = [
               width={125}
               height={189}
               unoptimized
-              className="pointer-events-none select-none "
+              className="pointer-events-none select-none"
             />
           </div>
         ),
@@ -137,12 +136,11 @@ export const cards: CardType[] = [
               width={125}
               height={167}
               unoptimized
-              className="pointer-events-none select-none "
+              className="pointer-events-none select-none"
             />
           </div>
         ),
       },
     ],
   },
-
 ];
