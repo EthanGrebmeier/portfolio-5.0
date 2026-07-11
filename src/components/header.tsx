@@ -4,7 +4,7 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div className="group flex max-w-screen-xl">
+    <header className="group flex max-w-screen-xl">
       <Link href="/" className="flex items-center gap-4">
         <Image
           width={60}
@@ -17,7 +17,7 @@ const Header = () => {
           Ethan Grebmeier{" "}
         </p>
       </Link>
-    </div>
+    </header>
   );
 };
 

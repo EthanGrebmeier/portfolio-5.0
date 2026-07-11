@@ -21,11 +21,14 @@ export default async function Page() {
         }
       >
         <div className="flex w-full flex-col gap-4">
-          <div className="flex w-full flex-1 flex-col gap-2 px-4 pb-6 pt-8 md:px-16 lg:px-0">
-            <div className="flex w-full flex-1 flex-col gap-6 rounded-3xl font-serif text-xl text-blue-700">
+          <div className="flex w-full flex-1 flex-col gap-2 px-4 pt-8 md:px-16 ">
+            <header>
               <h1 className="mb-4 font-serif text-4xl tracking-tight text-blue-700 ">
-                Ethan Grebmeier
-              </h1>
+                  Ethan Grebmeier
+                </h1>
+            </header>
+            <div className="flex w-full flex-1 flex-col gap-6 rounded-3xl font-serif text-lg leading-snug tracking-[-0.02em] text-blue-700">
+              
               <p className="text-pretty">
                 Hello there! I am a{" "}
                 <span className="italic"> Full Stack Developer </span>
@@ -37,8 +40,12 @@ export default async function Page() {
                   alt="Raining animation"
                   src="/images/rainanimated.gif"
                 />
-                {" "} I am passionate about making the web a{" "}
-                <span className="italic"> joyful </span>place.{" "}
+              </p>
+              <p>I currently work at <a href="https://asmbl.digital" target="_blank" rel="noopener noreferrer">ASMBL</a> as a Tech Lead.</p>
+
+              <p className="text-pretty">
+              {" "} I am passionate about creating {" "}
+                <span className="italic"> joyful </span>experiences{" "}
                 <Image
                   className="inline"
                   width={24}
@@ -46,13 +53,10 @@ export default async function Page() {
                   alt="Smiling animation"
                   src="/images/smileanimated.gif"
                 />
+                {" "}that look great and feel even better to use.
               </p>
-              <p className="text-pretty">
-                
-              </p>
-              <div className="flex flex-1 flex-col gap-12">
+
                 <p>Here are some personal projects that I&apos;m proud of:</p>
-              </div>
             </div>
           </div>
         </div>
@@ -61,7 +65,7 @@ export default async function Page() {
           <CardStack />
           <CardTooltip />
         </div>
-        <div className="flex items-center justify-between gap-2 px-4 md:px-8">
+        <div className="flex items-center justify-between gap-2 px-4 md:px-16">
           <Contact />
           <div>
             <Link href="https://github.com/ethangrebmeier">

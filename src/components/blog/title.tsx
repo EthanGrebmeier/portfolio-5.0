@@ -8,13 +8,14 @@ import Image from "next/image";
 
 type BlogTitleProps = {
   title: string;
-  link: {
+  link?: {
     href: string;
     text: string;
   };
+  date: string;
 };
 
-const BlogTitle = ({ title, link }: BlogTitleProps) => {
+const BlogTitle = ({ title, link, date }: BlogTitleProps) => {
   const [hasScrolled, setHasScrolled] = React.useState(false);
 
   useMemo(() => {
@@ -58,15 +59,20 @@ const BlogTitle = ({ title, link }: BlogTitleProps) => {
         layout
         className="flex w-full items-center justify-between gap-2"
       >
-        <h1 className="text-3xl tracking-tight sm:text-4xl text-blue-700 font-serif">{title}</h1>
-        <ButtonLink
+        <div>
+        <h1 className="text-3xl tracking-tight  text-blue-700 font-serif">{title}</h1>
+        <p className="text-sm text-gray-400">{date}</p>
+        </div>
+        {link && (
+          <ButtonLink
           color="blue"
           className="flex items-center gap-2 border border-transparent hover:border-blue-700"
           href={link.href}
         >
-          {link.text}
-          <LinkIcon size={18} />
-        </ButtonLink>
+            {link.text}
+            <LinkIcon size={18} />
+          </ButtonLink>
+        )}
       </motion.div>
     </motion.div>
   );

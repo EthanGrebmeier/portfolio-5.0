@@ -28,7 +28,7 @@ const BlogPage = ({ searchParams }: BlogPageProps) => {
       <div>
         <BlogTitle
           title="Tips For Working with AI Agents"
-          link={{ href: "/", text: "Home" }}
+          date="Jan 20th, 2026"
         />
 
         <BlogHero caption="co-written by peanut" media={heroMedia} />

@@ -1,9 +1,9 @@
 export const metadata = {
-  title: "Ethan Grebmeier",
+  title: "Dither — Ethan Grebmeier",
+  description: "Create two-color dithered images in your browser.",
 };
 
 import dynamic from "next/dynamic";
-import { Rubik_Pixels } from "next/font/google";
 import Header from "~/components/header";
 
 const Dither = dynamic(() => import("~/components/dither"), {
@@ -12,7 +12,7 @@ const Dither = dynamic(() => import("~/components/dither"), {
 
 export default async function Page() {
   return (
-    <div className="mx-auto flex h-[100svh] max-w-screen-xl flex-col items-start justify-start gap-2 p-4">
+    <div className="mx-auto flex min-h-[100svh] max-w-screen-2xl flex-col items-start gap-3 p-3 sm:p-4 lg:h-[100svh] lg:min-h-0">
       <Header />
       <Dither />
     </div>

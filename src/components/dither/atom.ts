@@ -1,67 +1,27 @@
-import { atom } from "jotai";
-import { atomWithStorage, createJSONStorage } from "jotai/utils";
-import { Color } from "./types";
+import { atomWithStorage } from "jotai/utils";
 
-const colorOne = {
-  color: "#fefefe",
-  id: 1,
+import type { DitherSettings } from "./types";
+
+export const DEFAULT_DITHER_SETTINGS: DitherSettings = {
+  type: "fsb",
+  threshold: 0.5,
+  pixelSize: 1,
+  diffusion: 1,
+  matrixSize: 8,
+  colorOne: "#f7f5ef",
+  colorTwo: "#000000",
 };
 
-const colorTwo = {
-  color: "#000000",
-  id: 2,
-};
-const initialColors: Color[] = [
-  colorOne,
-  colorTwo,
-  {
-    color: "#ff0000",
-    id: 3,
-  },
-  {
-    color: "#0000ff",
-    id: 4,
-  },
-  {
-    color: "#00ff00",
-    id: 5,
-  },
-] as const;
-
-const paletteSwatchesJsonStorage = createJSONStorage<Color[]>(
-  () => localStorage,
+export const ditherSettingsAtom = atomWithStorage<DitherSettings>(
+  "ditherSettingsV2",
+  DEFAULT_DITHER_SETTINGS,
+  undefined,
+  { getOnInit: true },
 );
 
-export const paletteSwatchesAtom = atomWithStorage<Color[]>(
-  "paletteColors",
-  initialColors,
-  paletteSwatchesJsonStorage,
-  {
-    getOnInit: true,
-  },
-);
-
-const ditherColorOneJsonStorage = createJSONStorage<Color>(() => localStorage);
-const ditherColorTwoJsonStorage = createJSONStorage<Color>(() => localStorage);
-
-export const ditherColorOneAtom = atomWithStorage<Color>(
-  "ditherColorOne",
-  colorOne,
-  ditherColorOneJsonStorage,
-);
-export const ditherColorTwoAtom = atomWithStorage<Color>(
-  "ditherColorTwo",
-  colorTwo,
-  ditherColorTwoJsonStorage,
-);
-
-const savedImageJsonStorage = createJSONStorage<string[]>(() => localStorage);
-
-export const savedImagesAtom = atomWithStorage<string[]>(
-  "savedImages",
-  [],
-  savedImageJsonStorage,
-  {
-    getOnInit: true,
-  },
+export const recentColorsAtom = atomWithStorage<string[]>(
+  "ditherRecentColorsV2",
+  [DEFAULT_DITHER_SETTINGS.colorTwo, DEFAULT_DITHER_SETTINGS.colorOne],
+  undefined,
+  { getOnInit: true },
 );

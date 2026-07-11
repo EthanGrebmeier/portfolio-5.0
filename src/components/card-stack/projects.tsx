@@ -2,6 +2,7 @@ import {
   ImagesIcon,
   ScrollIcon,
   type LucideProps,
+  ShoppingCartIcon,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -25,6 +26,31 @@ export type CardType = {
 };
 
 export const cards: CardType[] = [
+  {
+    id: 2,
+    title: "Chomp",
+    description: "Local-first Grocery and Meal Planning Application",
+    Icon: ShoppingCartIcon,
+    link: {
+      href: "https://chompgrocery.com",
+      label: "Check It Out",
+    },
+    contents: [
+      {
+        id: "chomp-1",
+        content: (
+          <Image
+            src="/images/chomp/ios-light.png"
+            alt="Chomp"
+            width={125}
+            height={125}
+            unoptimized
+            className="pointer-events-none select-none rounded-xl"
+          />
+        ),
+      },
+    ],
+  },
   {
     id: 0,
     title: "Fillaneed",
@@ -118,4 +144,5 @@ export const cards: CardType[] = [
       },
     ],
   },
+
 ];

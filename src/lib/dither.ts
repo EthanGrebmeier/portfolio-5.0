@@ -1,174 +1,214 @@
-import { RGBA } from "~/components/dither/types";
+import type {
+  BayerSize,
+  DitherSettings,
+  PixelBuffer,
+  RGBA,
+} from "~/components/dither/types";
 
-const getRGBA = (imageData: ImageData, x: number, y: number) => {
-  const offset = (y * imageData.width + x) * 4;
-  const red = imageData.data[offset];
-  const green = imageData.data[offset + 1];
-  const blue = imageData.data[offset + 2];
-  const alpha = imageData.data[offset + 3];
-  if (
-    (!red && red !== 0) ||
-    (!green && green !== 0) ||
-    (!blue && blue !== 0) ||
-    (!alpha && alpha !== 0)
-  ) {
-    throw new Error("Invalid pixel");
-  }
+const HEX_COLOR = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
+
+const BAYER_MATRICES: Record<BayerSize, number[][]> = {
+  2: [
+    [0, 2],
+    [3, 1],
+  ],
+  4: [
+    [0, 8, 2, 10],
+    [12, 4, 14, 6],
+    [3, 11, 1, 9],
+    [15, 7, 13, 5],
+  ],
+  8: [
+    [0, 32, 8, 40, 2, 34, 10, 42],
+    [48, 16, 56, 24, 50, 18, 58, 26],
+    [12, 44, 4, 36, 14, 46, 6, 38],
+    [60, 28, 52, 20, 62, 30, 54, 22],
+    [3, 35, 11, 43, 1, 33, 9, 41],
+    [51, 19, 59, 27, 49, 17, 57, 25],
+    [15, 47, 7, 39, 13, 45, 5, 37],
+    [63, 31, 55, 23, 61, 29, 53, 21],
+  ],
+};
+
+export const getRgbaFromHex = (hex: string): RGBA | null => {
+  const result = HEX_COLOR.exec(hex);
+  if (!result?.[1] || !result[2] || !result[3]) return null;
+
   return {
-    red,
-    green,
-    blue,
-    alpha,
+    red: parseInt(result[1], 16),
+    green: parseInt(result[2], 16),
+    blue: parseInt(result[3], 16),
+    alpha: 255,
   };
 };
 
-const setRGBA = (imageData: ImageData, x: number, y: number, rgba: RGBA) => {
-  const offset = (y * imageData.width + x) * 4;
-  imageData.data[offset] = rgba.red;
-  imageData.data[offset + 1] = rgba.green;
-  imageData.data[offset + 2] = rgba.blue;
+const getLuminance = (data: Uint8ClampedArray, offset: number) =>
+  0.299 * (data[offset] ?? 0) +
+  0.587 * (data[offset + 1] ?? 0) +
+  0.114 * (data[offset + 2] ?? 0);
+
+const setColor = (data: Uint8ClampedArray, pixelIndex: number, color: RGBA) => {
+  const offset = pixelIndex * 4;
+  data[offset] = color.red;
+  data[offset + 1] = color.green;
+  data[offset + 2] = color.blue;
+  data[offset + 3] = color.alpha;
 };
 
-export const getRgbaFromHex = (hex: string) => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return null;
-  const resultRed = result[1];
-  const resultGreen = result[2];
-  const resultBlue = result[3];
-  if (!resultRed || !resultGreen || !resultBlue) {
-    return null;
+const downsample = (image: PixelBuffer, pixelSize: number): PixelBuffer => {
+  if (pixelSize === 1) {
+    return {
+      data: new Uint8ClampedArray(image.data),
+      width: image.width,
+      height: image.height,
+    };
   }
-  return result
-    ? {
-        red: parseInt(resultRed, 16),
-        green: parseInt(resultGreen, 16),
-        blue: parseInt(resultBlue, 16),
-        alpha: 1,
+
+  const width = Math.ceil(image.width / pixelSize);
+  const height = Math.ceil(image.height / pixelSize);
+  const data = new Uint8ClampedArray(width * height * 4);
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let red = 0;
+      let green = 0;
+      let blue = 0;
+      let alpha = 0;
+      let count = 0;
+
+      const maxY = Math.min((y + 1) * pixelSize, image.height);
+      const maxX = Math.min((x + 1) * pixelSize, image.width);
+
+      for (let sourceY = y * pixelSize; sourceY < maxY; sourceY++) {
+        for (let sourceX = x * pixelSize; sourceX < maxX; sourceX++) {
+          const offset = (sourceY * image.width + sourceX) * 4;
+          red += image.data[offset] ?? 0;
+          green += image.data[offset + 1] ?? 0;
+          blue += image.data[offset + 2] ?? 0;
+          alpha += image.data[offset + 3] ?? 255;
+          count++;
+        }
       }
-    : null;
+
+      const offset = (y * width + x) * 4;
+      data[offset] = red / count;
+      data[offset + 1] = green / count;
+      data[offset + 2] = blue / count;
+      data[offset + 3] = alpha / count;
+    }
+  }
+
+  return { data, width, height };
 };
 
-const getModifiedRgba = (value: number, rgba: RGBA) => {
-  return {
-    red: value ? rgba.red : 0,
-    green: value ? rgba.green : 0,
-    blue: value ? rgba.blue : 0,
-    alpha: 1,
+const upscale = (
+  image: PixelBuffer,
+  width: number,
+  height: number,
+  pixelSize: number,
+): PixelBuffer => {
+  if (pixelSize === 1) return image;
+
+  const data = new Uint8ClampedArray(width * height * 4);
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const sourceX = Math.min(Math.floor(x / pixelSize), image.width - 1);
+      const sourceY = Math.min(Math.floor(y / pixelSize), image.height - 1);
+      const sourceOffset = (sourceY * image.width + sourceX) * 4;
+      const targetOffset = (y * width + x) * 4;
+
+      data[targetOffset] = image.data[sourceOffset] ?? 0;
+      data[targetOffset + 1] = image.data[sourceOffset + 1] ?? 0;
+      data[targetOffset + 2] = image.data[sourceOffset + 2] ?? 0;
+      data[targetOffset + 3] = image.data[sourceOffset + 3] ?? 255;
+    }
+  }
+
+  return { data, width, height };
+};
+
+const ditherFloydSteinberg = (
+  image: PixelBuffer,
+  settings: DitherSettings,
+  light: RGBA,
+  dark: RGBA,
+): PixelBuffer => {
+  const luminance = new Float32Array(image.width * image.height);
+  const output = new Uint8ClampedArray(image.data.length);
+  const threshold = settings.threshold * 255;
+
+  for (let index = 0; index < luminance.length; index++) {
+    luminance[index] = getLuminance(image.data, index * 4);
+  }
+
+  const addError = (x: number, y: number, error: number, weight: number) => {
+    if (x < 0 || x >= image.width || y < 0 || y >= image.height) return;
+    const index = y * image.width + x;
+    luminance[index] = (luminance[index] ?? 0) + error * weight;
   };
-};
 
-export const ditherImageFSB = (
-  ctx: CanvasRenderingContext2D,
-  image: ImageData,
-  color: {
-    rgbaOne: RGBA;
-    rgbaTwo: RGBA;
-  },
-) => {
-  for (let y = 0; y < image.height - 1; y++) {
-    for (let x = 0; x < image.width - 1; x++) {
-      // Get current pixel rgba
-      const sampleRGBA = getRGBA(image, x, y);
+  for (let y = 0; y < image.height; y++) {
+    for (let x = 0; x < image.width; x++) {
+      const index = y * image.width + x;
+      const current = luminance[index] ?? 0;
+      const value = current < threshold ? 0 : 255;
+      const error = (current - value) * settings.diffusion;
 
-      const gray = Math.round(
-        0.299 * sampleRGBA.red +
-          0.587 * sampleRGBA.green +
-          0.114 * sampleRGBA.red,
-      );
-
-      // Apply threshold
-      const newGray = gray < 128 ? 0 : 255;
-
-      // Calculate error
-      const error = gray - newGray;
-
-      // Assign new pixel values
-
-      setRGBA(image, x, y, newGray === 255 ? color.rgbaOne : color.rgbaTwo);
-
-      const rightPixel = getRGBA(image, x + 1, y);
-
-      setRGBA(image, x + 1, y, {
-        red: rightPixel.red + (error * 7) / 16,
-        green: rightPixel.green + (error * 7) / 16,
-        blue: rightPixel.blue + (error * 7) / 16,
-        alpha: 1,
-      });
-
-      const bottomLeftPixel = getRGBA(image, x - 1, y + 1);
-
-      setRGBA(image, x - 1, y + 1, {
-        red: bottomLeftPixel.red + (error * 3) / 16,
-        green: bottomLeftPixel.green + (error * 3) / 16,
-        blue: bottomLeftPixel.blue + (error * 3) / 16,
-        alpha: 1,
-      });
-
-      const bottomPixel = getRGBA(image, x, y + 1);
-
-      setRGBA(image, x, y + 1, {
-        red: bottomPixel.red + (error * 5) / 16,
-        green: bottomPixel.green + (error * 5) / 16,
-        blue: bottomPixel.blue + (error * 5) / 16,
-        alpha: 1,
-      });
-
-      const bottomRightPixel = getRGBA(image, x + 1, y + 1);
-
-      setRGBA(image, x + 1, y + 1, {
-        red: bottomRightPixel.red + (error * 1) / 16,
-        green: bottomRightPixel.green + (error * 1) / 16,
-        blue: bottomRightPixel.blue + (error * 1) / 16,
-        alpha: 1,
-      });
+      setColor(output, index, value === 255 ? light : dark);
+      addError(x + 1, y, error, 7 / 16);
+      addError(x - 1, y + 1, error, 3 / 16);
+      addError(x, y + 1, error, 5 / 16);
+      addError(x + 1, y + 1, error, 1 / 16);
     }
   }
-  ctx.putImageData(image, 0, 0);
+
+  return { data: output, width: image.width, height: image.height };
 };
 
-const ditherImageOrdered = (
-  ctx: CanvasRenderingContext2D,
-  image: ImageData,
-  color: {
-    rgbaOne: RGBA;
-    rgbaTwo: RGBA;
-  },
-) => {
-  const ditherMatrix = [
-    [1, 49, 13, 61, 4, 52, 16, 64],
-    [33, 17, 45, 29, 36, 20, 48, 32],
-    [9, 57, 5, 53, 12, 60, 8, 56],
-    [41, 25, 37, 21, 44, 28, 40, 24],
-    [3, 51, 15, 63, 2, 50, 14, 62],
-    [35, 19, 47, 31, 34, 18, 46, 30],
-    [11, 59, 7, 55, 10, 58, 6, 54],
-    [43, 27, 39, 23, 42, 26, 38, 22],
-  ];
+const ditherOrdered = (
+  image: PixelBuffer,
+  settings: DitherSettings,
+  light: RGBA,
+  dark: RGBA,
+): PixelBuffer => {
+  const output = new Uint8ClampedArray(image.data.length);
+  const matrix = BAYER_MATRICES[settings.matrixSize];
+  const divisor = settings.matrixSize * settings.matrixSize;
+  const thresholdOffset = settings.threshold - 0.5;
 
-  for (let y = 0; y < image.height - 1; y++) {
-    for (let x = 0; x < image.width - 1; x++) {
-      // Get current pixel rgba
-      const sampleRGBA = getRGBA(image, x, y);
-      const gray = Math.round(
-        0.299 * sampleRGBA.red +
-          0.587 * sampleRGBA.green +
-          0.114 * sampleRGBA.red,
+  for (let y = 0; y < image.height; y++) {
+    for (let x = 0; x < image.width; x++) {
+      const index = y * image.width + x;
+      const luminance = getLuminance(image.data, index * 4) / 255;
+      const matrixValue =
+        ((matrix[y % settings.matrixSize]?.[x % settings.matrixSize] ?? 0) +
+          0.5) /
+        divisor;
+      setColor(
+        output,
+        index,
+        luminance - thresholdOffset > matrixValue ? light : dark,
       );
-      const ditherValue = (gray / 255) * 65;
-
-      const matrixValue = ditherMatrix?.[x % 8]?.[y % 8] ?? 0;
-      const newValue =
-        typeof matrixValue !== "undefined" && ditherValue > matrixValue
-          ? 255
-          : 0;
-
-      setRGBA(image, x, y, newValue === 255 ? color.rgbaOne : color.rgbaTwo);
     }
   }
-  ctx.putImageData(image, 0, 0);
+
+  return { data: output, width: image.width, height: image.height };
 };
 
-export const ditherTypes = {
-  fsb: ditherImageFSB,
-  ordered: ditherImageOrdered,
+export const ditherImage = (
+  image: PixelBuffer,
+  settings: DitherSettings,
+): PixelBuffer => {
+  const light = getRgbaFromHex(settings.colorOne);
+  const dark = getRgbaFromHex(settings.colorTwo);
+  if (!light || !dark) throw new Error("Invalid dither color");
+
+  const pixelSize = Math.max(1, Math.round(settings.pixelSize));
+  const sampled = downsample(image, pixelSize);
+  const dithered =
+    settings.type === "fsb"
+      ? ditherFloydSteinberg(sampled, settings, light, dark)
+      : ditherOrdered(sampled, settings, light, dark);
+
+  return upscale(dithered, image.width, image.height, pixelSize);
 };
