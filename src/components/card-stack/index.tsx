@@ -29,6 +29,7 @@ const CardStack = () => {
   const isMobile = useIsMobile();
 
   const [openCardId, setOpenCardId] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const handleOpenCard = (id: number) => {
     setOpenCardId(id);
   };
@@ -57,6 +58,8 @@ const CardStack = () => {
                 numCards={cards.length}
                 isOpen={openCardId === card.id}
                 onOpen={() => handleOpenCard(card.id)}
+                hoveredIndex={hoveredIndex}
+                onHoverChange={setHoveredIndex}
               />
             );
           })}

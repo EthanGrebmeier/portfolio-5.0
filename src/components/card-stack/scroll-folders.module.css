@@ -1,0 +1,237 @@
+.section {
+  width: 100%;
+  color: #1d4ed8;
+}
+
+.stage {
+  padding: 24px 16px;
+}
+
+.toolbar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.toolbar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  min-height: 44px;
+}
+
+.scene {
+  position: relative;
+}
+
+.folder {
+  position: relative;
+  width: min(84%, 420px);
+  height: clamp(200px, 32svh, 290px);
+  margin: 160px auto 150px;
+  isolation: isolate;
+}
+
+.back {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: #3b82f6;
+  box-shadow: inset 0 1px 0 #ffffff40;
+}
+
+.tab {
+  position: absolute;
+  bottom: calc(100% - 12px);
+  left: 0;
+  min-width: 42%;
+  margin: 0;
+  padding: 10px 16px 22px;
+  border-radius: 14px 14px 0 0;
+  background: inherit;
+  color: #eff6ff;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  box-shadow: inset 0 1px 0 #ffffff40;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  bottom: 12px;
+  left: 100%;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle at 100% 0, transparent 11.5px, #3b82f6 12px);
+}
+
+.paper {
+  position: absolute;
+  inset: 8% 8% auto;
+  height: 50%;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.previews {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.previewPosition {
+  position: absolute;
+  bottom: 86%;
+  transform-origin: bottom center;
+}
+
+.preview {
+  width: max-content;
+}
+
+.preview > * {
+  max-width: 125px;
+  max-height: 160px;
+  object-fit: contain;
+  box-shadow: 0 6px 16px #1725541a;
+}
+
+.flap {
+  position: absolute;
+  inset: auto 0 0;
+  height: 88%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #78b4fb, #60a5fa 60%);
+  color: white;
+  box-shadow: 0 -10px 24px #1e3a8a38, inset 0 1px 0 #ffffff8c;
+  transform-origin: center bottom;
+  transform: perspective(1600px) rotateX(-2deg);
+  font-size: 18px;
+}
+
+.number {
+  font-size: 12px;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.details {
+  position: absolute;
+  top: calc(100% + 22px);
+  inset-inline: -8px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.details p {
+  margin: 0 auto 10px;
+  max-width: 34ch;
+  text-wrap: balance;
+}
+
+.visit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid #1d4ed833;
+  border-radius: 999px;
+  text-decoration: none;
+  background: #eff6ff;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.visit:active {
+  background: #dbeafe;
+}
+
+.navigation {
+  display: none;
+  justify-content: center;
+  gap: 4px;
+}
+
+.navigation button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.navigation button span {
+  opacity: 0.55;
+  font-size: 11px;
+  margin-right: 4px;
+}
+
+.navigation button[aria-pressed="true"],
+.navigation button:active {
+  background: #dbeafe;
+}
+
+.visit:focus-visible,
+.navigation button:focus-visible,
+.toolbar a:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 4px;
+}
+
+.section[data-enhanced] .stage {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  min-height: 560px;
+  overflow: clip;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.section[data-enhanced] .toolbar,
+.section[data-enhanced] .navigation {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.section[data-enhanced] .scene {
+  flex: 1;
+}
+
+.section[data-enhanced] .folder {
+  position: absolute;
+  top: clamp(110px, 20svh, 200px);
+  inset-inline: 0;
+  margin: 0 auto;
+  width: min(78%, 420px);
+  height: clamp(170px, 30svh, 290px);
+}
+
+@media (max-width: 400px) {
+  .preview > * {
+    max-width: 95px;
+    max-height: 130px;
+  }
+
+  .navigation button {
+    padding-inline: 10px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .visit:hover,
+  .navigation button:hover {
+    background: #dbeafe;
+  }
+}

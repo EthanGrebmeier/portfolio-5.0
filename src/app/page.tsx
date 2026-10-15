@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import CardStack from "~/components/card-stack";
-import CardTooltip from "~/components/card-stack/card-tooltip";
+import ScrollFolders from "~/components/card-stack/scroll-folders";
 import Contact from "~/components/home/contact";
 import { cn } from "~/helpers/cn";
 
@@ -61,10 +60,7 @@ export default async function Page() {
           </div>
         </div>
 
-        <div className="relative w-full py-4 max-sm:px-4">
-          <CardStack />
-          <CardTooltip />
-        </div>
+        <ScrollFolders />
         <div className="flex items-center justify-between gap-2 px-4 md:px-16">
           <Contact />
           <div>
