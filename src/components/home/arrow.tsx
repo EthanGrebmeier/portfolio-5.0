@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion, MotionConfig } from "motion/react";
-import { useMediaQuery } from "usehooks-ts";
 
 const variants = {
   initial: {

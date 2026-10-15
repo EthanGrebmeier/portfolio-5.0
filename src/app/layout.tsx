@@ -1,4 +1,4 @@
-import { Afacad, Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { Provider } from "jotai";
 
@@ -10,6 +10,7 @@ const bodyFont = Plus_Jakarta_Sans({
   weight: ["400", "600"],
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-body",
 });
 
 const junicode = localFont({
@@ -42,17 +43,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" translate="no">
-      <Provider>
-        <QueryClientWrapper>
-          <MotionConfig reducedMotion="user">
-            <body
-              className={`${bodyFont.className} ${junicode.variable} overflow-x-hidden`}
-            >
-              {children}
-            </body>
-          </MotionConfig>
-        </QueryClientWrapper>
-      </Provider>
+      <body
+        className={`${bodyFont.className} ${bodyFont.variable} ${junicode.variable} overflow-x-hidden`}
+      >
+        <Provider>
+          <QueryClientWrapper>
+            <MotionConfig reducedMotion="user">{children}</MotionConfig>
+          </QueryClientWrapper>
+        </Provider>
+      </body>
     </html>
   );
 }

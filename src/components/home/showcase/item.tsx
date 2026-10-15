@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
 import React from "react";
 import Badge from "~/components/badge";
 import ButtonLink from "~/components/button-link";
@@ -116,7 +115,7 @@ const ShowcaseItem = ({
       {overlay?.showOverlay && (
         <div
           className={cn(
-            "absolute inset-0 z-[2] bg-gray-600/40",
+            "absolute inset-0 z-2 bg-gray-600/40",
             overlay.className,
           )}
         />
@@ -124,7 +123,7 @@ const ShowcaseItem = ({
       <Image
         priority
         fill
-        className="z-[1] h-full w-full object-cover"
+        className="z-1 h-full w-full object-cover"
         placeholder="blur"
         src={backgroundImage.src}
         alt={backgroundImage.alt}

@@ -96,7 +96,7 @@ const ColorControls = ({
                   colorInputRefs.current[key]?.focus();
                   colorInputRefs.current[key]?.click();
                 }}
-                className="m-1.5 shrink-0 rounded-lg ring-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700"
+                className="m-1.5 shrink-0 rounded-lg ring-offset-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-700"
                 aria-label={`Choose a custom ${label.toLowerCase()}`}
               >
                 <span
@@ -107,7 +107,7 @@ const ColorControls = ({
               <button
                 type="button"
                 onClick={() => setActiveColor(key)}
-                className="h-full min-w-0 flex-1 truncate rounded-r-xl pr-2 text-left font-mono text-xs uppercase text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-700"
+                className="h-full min-w-0 flex-1 truncate rounded-r-xl pr-2 text-left font-mono text-xs uppercase text-slate-600 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-700"
                 aria-label={`Select ${label} for preset colors`}
                 aria-pressed={activeColor === key}
               >
@@ -146,7 +146,7 @@ const ColorControls = ({
               key={value}
               type="button"
               onClick={() => setColor(activeColor, value)}
-              className="size-7 rounded-full border border-black/10 ring-offset-2 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700"
+              className="size-7 rounded-full border border-black/10 ring-offset-2 transition hover:scale-105 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-700"
               style={{ backgroundColor: value }}
               aria-label={`Use ${name} for the selected color`}
             />
@@ -166,7 +166,7 @@ const ColorControls = ({
                 key={color}
                 type="button"
                 onClick={() => setColor(activeColor, color, true)}
-                className="size-7 rounded-full border border-black/10 ring-offset-2 transition hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700"
+                className="size-7 rounded-full border border-black/10 ring-offset-2 transition hover:scale-105 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-700"
                 style={{ backgroundColor: color }}
                 aria-label={`Use recent custom color ${color}`}
               />

@@ -8,7 +8,7 @@ import Dither from "~/components/dither";
 
 export default async function Page() {
   return (
-    <div className="mx-auto flex min-h-[100svh] max-w-screen-2xl flex-col items-start gap-3 p-3 sm:p-4 lg:h-[100svh] lg:min-h-0">
+    <div className="mx-auto flex min-h-svh max-w-(--breakpoint-2xl) flex-col items-start gap-3 p-3 sm:p-4 lg:h-svh lg:min-h-0">
       <Header />
       <Dither />
     </div>

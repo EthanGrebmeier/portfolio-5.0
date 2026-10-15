@@ -104,7 +104,7 @@ const Card = ({
         damping: 30,
         duration: 0.3,
       }}
-      className="absolute left-1/2 top-1/2 aspect-[4/3] h-auto w-[calc(100%-2.5rem)] max-w-[360px] cursor-pointer touch-none overflow-visible md:w-full md:max-w-[420px]"
+      className="absolute left-1/2 top-1/2 aspect-4/3 h-auto w-[calc(100%-2.5rem)] max-w-[360px] cursor-pointer touch-none overflow-visible md:w-full md:max-w-[420px]"
     >
         {/* Back of folder — tilted slightly away, with an attached tab */}
         <motion.div
@@ -141,14 +141,14 @@ const Card = ({
         {/* Paper sheet peeking out when opened */}
         <motion.div
           aria-hidden
-          className="absolute inset-x-[8%] top-[10%] z-[1] h-1/2 rounded-md bg-slate-50 shadow-sm"
+          className="absolute inset-x-[8%] top-[10%] z-1 h-1/2 rounded-md bg-slate-50 shadow-xs"
           initial={false}
           animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
           transition={{ duration: isHovered ? 0.52 : 0.31, ease: EASE_OUT }}
         />
         {/* Arc items - rendered BETWEEN back and front so front covers bottom half */}
         {isDesktop && (
-          <div className="pointer-events-none absolute left-1/2 top-0 z-[1]">
+          <div className="pointer-events-none absolute left-1/2 top-0 z-1">
             {contents.map((item, itemIndex) => {
               const pos = getArcPosition(itemIndex, contents.length);
               return (
@@ -158,7 +158,7 @@ const Card = ({
                   className="absolute left-0 top-0 -translate-x-1/2"
                 >
                   <motion.div
-                    className="[backface-visibility:hidden] will-change-transform"
+                    className="backface-hidden will-change-transform"
                     initial={false}
                     animate={
                       isHovered
@@ -191,7 +191,7 @@ const Card = ({
         )}
         {/* Front flap — tilts toward the viewer and opens further on hover */}
         <motion.div
-          className="absolute inset-x-0 bottom-0 z-[2] flex h-[88%] origin-bottom flex-col justify-end gap-1.5 rounded-[14px] px-5 py-4"
+          className="absolute inset-x-0 bottom-0 z-2 flex h-[88%] origin-bottom flex-col justify-end gap-1.5 rounded-[14px] px-5 py-4"
           style={{
             background: FOLDER_FRONT,
             boxShadow:

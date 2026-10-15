@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 
 function getServerSnapshot(): boolean {
   return false; // Default to desktop on server

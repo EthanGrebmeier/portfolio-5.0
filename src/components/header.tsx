@@ -4,7 +4,7 @@ import React from "react";
 
 const Header = () => {
   return (
-    <header className="group flex max-w-screen-xl">
+    <header className="group flex max-w-(--breakpoint-xl)">
       <Link href="/" className="flex items-center gap-4">
         <Image
           width={60}

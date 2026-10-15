@@ -90,10 +90,10 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-x-0 top-0 z-50 h-[100dvh] bg-slate-950/40 backdrop-blur-[2px]"
+        className="fixed inset-x-0 top-0 z-50 h-dvh bg-slate-950/40 backdrop-blur-[2px]"
         onClick={onClose}
       />
-      <div className="perspective-dramatic pointer-events-none fixed inset-x-0 top-0 z-[51] flex h-[100dvh] items-center justify-center">
+      <div className="perspective-dramatic pointer-events-none fixed inset-x-0 top-0 z-51 flex h-dvh items-center justify-center">
         {/* Back of folder */}
         <motion.div
           variants={backVariants}
@@ -187,7 +187,7 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           animate={["closed", "open"]}
           whileHover="initial"
           exit="exit"
-          className="absolute bottom-0 h-[120px] origin-bottom rounded-xl border border-blue-400 bg-blue-300 shadow-sm"
+          className="absolute bottom-0 h-[120px] origin-bottom rounded-xl border border-blue-400 bg-blue-300 shadow-xs"
           style={{ width: cardWidth }}
         >
           <div className="relative h-full w-full p-3"></div>
@@ -201,7 +201,7 @@ export const OpenFolder = ({ card, onClose }: OpenFolderProps) => {
           <Button
             variant="outline"
             size="icon"
-            className="border-white/70 bg-white/95 text-blue-700 shadow-md backdrop-blur hover:bg-white"
+            className="border-white/70 bg-white/95 text-blue-700 shadow-md backdrop-blur-sm hover:bg-white"
             onClick={onClose}
             aria-label="Close folder"
           >

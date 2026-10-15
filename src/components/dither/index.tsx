@@ -190,7 +190,7 @@ const Dither = () => {
   );
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm lg:flex lg:min-h-0 lg:flex-1 lg:flex-col">
+    <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs lg:flex lg:min-h-0 lg:flex-1 lg:flex-col">
       <div className="relative flex flex-col lg:min-h-0 lg:flex-1 lg:flex-row lg:overflow-hidden">
         <div className="flex h-[60svh] min-h-80 shrink-0 lg:h-auto lg:min-h-0 lg:min-w-0 lg:flex-1">
           <CanvasWorkspace

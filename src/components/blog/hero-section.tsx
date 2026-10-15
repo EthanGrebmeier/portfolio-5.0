@@ -1,5 +1,4 @@
 import React from "react";
-import { cn } from "~/helpers/cn";
 import { BlogMedia, type BlogMediaDefinition } from "./media";
 
 type BlogHeroProps = {

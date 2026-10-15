@@ -251,7 +251,7 @@ const CanvasWorkspace = ({
           asChild
           variant="outline"
           size="xs"
-          className="cursor-pointer bg-white/95 shadow-sm backdrop-blur"
+          className="cursor-pointer bg-white/95 shadow-xs backdrop-blur-sm"
         >
           <label htmlFor="dither-image-upload">
             <FolderOpen />
@@ -262,7 +262,7 @@ const CanvasWorkspace = ({
         <Button
           type="button"
           size="xs"
-          className="shadow-sm"
+          className="shadow-xs"
           onClick={onDownload}
           disabled={!canDownload || isExporting}
         >
@@ -277,7 +277,7 @@ const CanvasWorkspace = ({
         </Button>
       </div>
 
-      <div className="absolute right-3 top-3 z-10 flex w-fit rounded-full border border-slate-200 bg-white/95 p-1 shadow-sm backdrop-blur">
+      <div className="absolute right-3 top-3 z-10 flex w-fit rounded-full border border-slate-200 bg-white/95 p-1 shadow-xs backdrop-blur-sm">
         <button
           type="button"
           onClick={() => onShowOriginalChange(true)}
@@ -303,7 +303,7 @@ const CanvasWorkspace = ({
       </div>
 
       {isProcessing && !showOriginal ? (
-        <div className="absolute right-3 top-14 z-10 flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 text-xs text-slate-500 shadow-sm backdrop-blur">
+        <div className="absolute right-3 top-14 z-10 flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 text-xs text-slate-500 shadow-xs backdrop-blur-sm">
           <LoaderCircle className="size-3.5 animate-spin" />
           Processing
         </div>
@@ -312,13 +312,13 @@ const CanvasWorkspace = ({
       {error ? (
         <div
           role="alert"
-          className="absolute left-1/2 top-24 z-10 w-fit max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-full bg-red-50 px-3 py-1.5 text-xs text-red-700 shadow-sm sm:top-14"
+          className="absolute left-1/2 top-24 z-10 w-fit max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-full bg-red-50 px-3 py-1.5 text-xs text-red-700 shadow-xs sm:top-14"
         >
           {error}
         </div>
       ) : null}
 
-      <div className="absolute bottom-3 left-1/2 z-10 flex w-fit -translate-x-1/2 items-center rounded-full border border-slate-200 bg-white/95 p-1 shadow-lg backdrop-blur">
+      <div className="absolute bottom-3 left-1/2 z-10 flex w-fit -translate-x-1/2 items-center rounded-full border border-slate-200 bg-white/95 p-1 shadow-lg backdrop-blur-sm">
         <button
           type="button"
           onClick={() => changeZoom(-0.1)}
@@ -347,7 +347,7 @@ const CanvasWorkspace = ({
       </div>
 
       {isDragging ? (
-        <div className="pointer-events-none absolute inset-3 z-20 flex items-center justify-center rounded-2xl border-2 border-dashed border-blue-700 bg-blue-50/95 text-blue-700 backdrop-blur">
+        <div className="pointer-events-none absolute inset-3 z-20 flex items-center justify-center rounded-2xl border-2 border-dashed border-blue-700 bg-blue-50/95 text-blue-700 backdrop-blur-sm">
           <div className="flex items-center gap-3 font-medium">
             <ImagePlus />
             Drop image to open

@@ -38,7 +38,7 @@ const features: BlogFeature[] = [
       desktop: {
         src: "/images/fillaneed/secret.png",
       },
-      containerClassName: "aspect-[6/4]",
+      containerClassName: "aspect-6/4",
     },
   },
   {
@@ -58,7 +58,7 @@ const features: BlogFeature[] = [
       desktop: {
         src: "/images/fillaneed/receipt.gif",
       },
-      containerClassName: "aspect-[6/4]",
+      containerClassName: "aspect-6/4",
     },
   },
 ];

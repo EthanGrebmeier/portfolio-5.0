@@ -133,7 +133,7 @@ const DitherControls = ({
                     onClick={() => update("matrixSize", size)}
                     className={`rounded-lg px-2 py-1.5 text-sm transition ${
                       settings.matrixSize === size
-                        ? "bg-white text-blue-700 shadow-sm"
+                        ? "bg-white text-blue-700 shadow-xs"
                         : "text-slate-500 hover:text-slate-800"
                     }`}
                     aria-pressed={settings.matrixSize === size}

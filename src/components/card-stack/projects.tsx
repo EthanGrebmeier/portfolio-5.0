@@ -63,7 +63,7 @@ export const cards: CardType[] = [
       {
         id: "fill-4",
         content: (
-          <div className="relative aspect-[391/502] w-[120px] overflow-hidden rounded-md">
+          <div className="relative aspect-391/502 w-[120px] overflow-hidden rounded-md">
             <Image
               src="/images/fillaneed-item-one.png"
               alt="A fillaneed product"
@@ -76,7 +76,7 @@ export const cards: CardType[] = [
       {
         id: "fill-5",
         content: (
-          <div className="relative aspect-[268/92] w-[95px] overflow-hidden rounded-xl">
+          <div className="relative aspect-268/92 w-[95px] overflow-hidden rounded-xl">
             <Image
               src="/images/fillaneed-date.png"
               alt="Fillaneed keep it a secret mode"
@@ -89,7 +89,7 @@ export const cards: CardType[] = [
       {
         id: "fill-6",
         content: (
-          <div className="relative aspect-[2900/2140] w-[280px] overflow-hidden rounded-md md:w-[170px]">
+          <div className="relative aspect-2900/2140 w-[280px] overflow-hidden rounded-md md:w-[170px]">
             <Image
               src="/images/fillaneed/fillaneed-wishlist-view.png"
               alt="A fillaneed wishlist view"
