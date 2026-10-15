@@ -30,6 +30,15 @@ pnpm start      # Serve the production build
 
 Individual checks are available as `pnpm lint`, `pnpm typecheck`, and `pnpm test`.
 
+Run the desktop/mobile browser layout checks with:
+
+```sh
+pnpm exec playwright install chromium
+pnpm test:e2e
+```
+
+These tests build and serve the production site, check homepage padding, gaps, and viewport bounds, and save screenshots under `test-results/` (gitignored). They require the same environment variables as a production build.
+
 ## Deploying to Vercel
 
 1. In **Project Settings → Build and Deployment**, select **Node.js 24.x**.
@@ -42,7 +51,7 @@ The `engines.node` field also declares Node.js 24.x so the repository and deploy
 
 ## Maintenance notes
 
-- Tailwind v4 uses CSS-first configuration in `src/styles/globals.css` and the `@tailwindcss/postcss` plugin. There is no longer a `tailwind.config.ts`.
+- Tailwind v4 uses CSS-first configuration in `src/styles/globals.css` and the `@tailwindcss/postcss` plugin. There is no longer a `tailwind.config.ts`. Tailwind owns `--spacing`; use site-specific names such as `--section-spacing` for layout variables so they do not override the utility spacing scale.
 - Motion is imported from `motion/react`; a separate direct `framer-motion` dependency is unnecessary.
 - Node.js type definitions intentionally target version 24, not the newest Node.js major.
 - TypeScript stays on 6.0.x because the current `typescript-eslint` release does not support TypeScript 7. ESLint stays on 9.x because Next.js’s React, accessibility, and import plugins do not yet declare ESLint 10 support. Revisit these pins when their peer dependencies support newer majors.

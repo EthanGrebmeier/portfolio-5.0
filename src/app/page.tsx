@@ -15,7 +15,7 @@ export default async function Page() {
         className="flex w-full flex-col justify-between gap-8 py-6 "
         style={
           {
-            "--spacing": "48px",
+            "--section-spacing": "48px",
           } as React.CSSProperties
         }
       >
