@@ -1,0 +1,57 @@
+.page {
+  --entrance-stagger: 50ms;
+}
+
+.entrance,
+.intro > p {
+  /* Backwards fill hides delayed sections, then releases the animation's
+     stacking context when finished so project pinning stays independent. */
+  animation: enter 1000ms ease backwards;
+  animation-delay: calc(var(--entrance-order, 0) * var(--entrance-stagger));
+}
+
+.intro > p:nth-child(1) {
+  --entrance-order: 1;
+}
+
+.intro > p:nth-child(2) {
+  --entrance-order: 2;
+}
+
+.intro > p:nth-child(3) {
+  --entrance-order: 3;
+}
+
+.intro > p:nth-child(4) {
+  --entrance-order: 4;
+}
+
+.projects {
+  --entrance-order: 5;
+}
+
+/* Don't reveal the server-rendered list before the stacked layout is ready. */
+.projects:not([data-ready]) {
+  animation-play-state: paused;
+}
+
+.footer {
+  --entrance-order: 6;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrance,
+  .intro > p {
+    animation-duration: 150ms;
+    animation-delay: 0ms;
+  }
+}

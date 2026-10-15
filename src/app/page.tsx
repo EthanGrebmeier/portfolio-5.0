@@ -3,11 +3,13 @@ import Link from "next/link";
 import ScrollFolders from "~/components/card-stack/scroll-folders";
 import Contact from "~/components/home/contact";
 import { cn } from "~/helpers/cn";
+import styles from "./page.module.css";
 
 export default async function Page() {
   return (
     <div
       className={cn(
+        styles.page,
         "mx-auto flex w-full max-w-[640px] flex-col items-center bg-background",
       )}
     >
@@ -21,12 +23,17 @@ export default async function Page() {
       >
         <div className="flex w-full flex-col gap-4">
           <div className="flex w-full flex-1 flex-col gap-2 px-4 pt-8 md:px-16 ">
-            <header>
+            <header className={styles.entrance}>
               <h1 className="mb-4 font-serif text-4xl tracking-tight text-blue-700 ">
                   Ethan Grebmeier
                 </h1>
             </header>
-            <div className="flex w-full flex-1 flex-col gap-6 rounded-3xl font-serif text-lg leading-snug tracking-[-0.02em] text-blue-700">
+            <div
+              className={cn(
+                styles.intro,
+                "flex w-full flex-1 flex-col gap-6 rounded-3xl font-serif text-lg leading-snug tracking-[-0.02em] text-blue-700",
+              )}
+            >
               
               <p className="text-pretty">
                 Hello there! I am a{" "}
@@ -60,8 +67,14 @@ export default async function Page() {
           </div>
         </div>
 
-        <ScrollFolders />
-        <div className="flex items-center justify-between gap-2 px-4 md:px-16">
+        <ScrollFolders className={cn(styles.entrance, styles.projects)} />
+        <div
+          className={cn(
+            styles.entrance,
+            styles.footer,
+            "flex items-center justify-between gap-2 px-4 md:px-16",
+          )}
+        >
           <Contact />
           <div>
             <Link href="https://github.com/ethangrebmeier">

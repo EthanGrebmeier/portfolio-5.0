@@ -1,5 +1,40 @@
 import { expect, test } from "@playwright/test";
 
+test("project navigation follows the visible viewport while pinned", async ({ page }) => {
+  await page.goto("/");
+  const section = page.getByRole("region", { name: "Personal projects" });
+  await expect(section).toHaveAttribute("data-enhanced", "true");
+  await page.evaluate(() => document.fonts.ready);
+
+  await expect(page.getByText("Scroll to explore", { exact: true })).toHaveCount(0);
+  await expect(section.locator("[data-flap]")).toHaveText(["", "", ""]);
+
+  const navigation = page.getByRole("navigation", { name: "Choose a project" });
+  const scrollIntoStage = async () => {
+    await section.evaluate((element) => {
+      window.scrollTo({ top: element.getBoundingClientRect().top + window.scrollY + 250, behavior: "instant" });
+    });
+  };
+  const expectBottomNavigation = async () => {
+    await expect.poll(async () => {
+      const bounds = await navigation.boundingBox();
+      return Math.abs(page.viewportSize()!.height - bounds!.y - bounds!.height - 16);
+    }).toBeLessThan(2);
+  };
+
+  await scrollIntoStage();
+  await expectBottomNavigation();
+
+  // Model the visible viewport growing as mobile browser controls collapse.
+  const viewport = page.viewportSize()!;
+  await page.setViewportSize({ width: viewport.width, height: viewport.height + 90 });
+  await expectBottomNavigation();
+
+  await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }));
+  await scrollIntoStage();
+  await expectBottomNavigation();
+});
+
 test("homepage keeps normal spacing and stays inside the viewport", async ({ page }, testInfo) => {
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
